@@ -1,0 +1,45 @@
+name: what_to_eat
+description: 今日吃什么 —— 本地优先的菜谱抽签 App（Flutter + Riverpod + GoRouter + Drift）
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.4.0
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # 状态管理（手动 Provider，不依赖代码生成）
+  flutter_riverpod: ^2.5.1
+
+  # 路由
+  go_router: ^14.2.7
+
+  # 本地数据库（SQLite，需要 build_runner 生成 .g.dart）
+  drift: ^2.21.0
+  sqlite3_flutter_libs: ^0.5.0
+  path_provider: ^2.1.0
+  path: ^1.9.0
+
+  # 数据导入/导出（V1 备份/恢复/迁移，仅用 file_picker 同时支持存盘与选文件）
+  # 锁 ^8.0.0：兼容 Flutter >=3.22 / Dart >=3.4（share_plus 13.x 要求 Flutter >=3.38 会冲突）
+  file_picker: ^8.0.0
+
+  # 动画（结果卡展开）
+  flutter_animate: ^4.5.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+  # 仅 Drift 使用代码生成
+  build_runner: ^2.4.0
+  drift_dev: ^2.21.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/seed/

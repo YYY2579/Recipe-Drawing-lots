@@ -1,0 +1,6921 @@
+[
+  {
+    "id": "r001",
+    "name": "鱼香肉丝",
+    "categories": [
+      "川菜",
+      "家常菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酸甜",
+      "微辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "经典川味家常菜，酸甜微辣，非常下饭。",
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "木耳",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "胡萝卜",
+        "amount": 1,
+        "unit": "根"
+      },
+      {
+        "name": "青椒",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "生抽",
+      "陈醋",
+      "白糖",
+      "淀粉",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "猪肉切丝，加料酒、淀粉、生抽腌制 10 分钟"
+      },
+      {
+        "stepNumber": 2,
+        "description": "木耳泡发切丝，胡萝卜青椒切丝"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调鱼香汁：生抽+陈醋+白糖+淀粉+水搅匀"
+      },
+      {
+        "stepNumber": 4,
+        "description": "热油滑炒肉丝至变色盛出，爆香豆瓣酱，下配菜翻炒"
+      },
+      {
+        "stepNumber": 5,
+        "description": "回锅肉丝，淋鱼香汁翻炒收汁出锅"
+      }
+    ]
+  },
+  {
+    "id": "r002",
+    "name": "宫保鸡丁",
+    "categories": [
+      "川菜",
+      "家常菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "糊辣",
+      "荔枝口"
+    ],
+    "difficulty": 2,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "鸡肉滑嫩、花生酥香，糊辣荔枝口，老少皆宜。",
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "花生米",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 8,
+        "unit": "个"
+      },
+      {
+        "name": "葱白",
+        "amount": 2,
+        "unit": "段"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "生抽",
+      "醋",
+      "白糖",
+      "淀粉",
+      "花椒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡丁加料酒、淀粉、生抽腌制"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调碗汁：生抽+醋+糖+淀粉+水"
+      },
+      {
+        "stepNumber": 3,
+        "description": "花生米小火炸香盛出"
+      },
+      {
+        "stepNumber": 4,
+        "description": "爆香干辣椒花椒，下鸡丁滑炒"
+      },
+      {
+        "stepNumber": 5,
+        "description": "淋碗汁炒匀，下花生米葱白翻匀出锅"
+      }
+    ]
+  },
+  {
+    "id": "r003",
+    "name": "麻婆豆腐",
+    "categories": [
+      "川菜",
+      "家常菜",
+      "下饭菜",
+      "素菜"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "麻、辣、烫、嫩、鲜、香，快手经典。",
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "amount": 1,
+        "unit": "盒"
+      },
+      {
+        "name": "牛肉末",
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "name": "蒜苗",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "花椒粉",
+      "生抽",
+      "淀粉",
+      "辣椒面"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "豆腐切块焯水去豆腥"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒香肉末与豆瓣酱出红油"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加水下豆腐，调味略烧"
+      },
+      {
+        "stepNumber": 4,
+        "description": "水淀粉勾芡，撒花椒粉蒜苗出锅"
+      }
+    ]
+  },
+  {
+    "id": "r004",
+    "name": "回锅肉",
+    "categories": [
+      "川菜",
+      "家常菜",
+      "下饭菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "咸鲜",
+      "微辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "川菜之首，肥而不腻，配青蒜绝绝子。",
+    "ingredients": [
+      {
+        "name": "二刀坐臀肉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "青蒜",
+        "amount": 2,
+        "unit": "根"
+      },
+      {
+        "name": "甜面酱",
+        "amount": 1,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "生抽",
+      "料酒",
+      "白糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "整块肉冷水煮七分熟，晾凉切薄片"
+      },
+      {
+        "stepNumber": 2,
+        "description": "小火煸炒肉片出油至卷曲"
+      },
+      {
+        "stepNumber": 3,
+        "description": "下豆瓣酱甜面酱炒香"
+      },
+      {
+        "stepNumber": 4,
+        "description": "下青蒜段大火翻炒出锅"
+      }
+    ]
+  },
+  {
+    "id": "r005",
+    "name": "水煮肉片",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 30,
+    "servings": 2,
+    "description": "麻辣鲜香，肉片嫩滑，汤汁红亮。",
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "黄豆芽",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "油麦菜",
+        "amount": 1,
+        "unit": "把"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "干辣椒",
+      "花椒",
+      "生抽",
+      "淀粉"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉片腌制上浆"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒底菜垫碗"
+      },
+      {
+        "stepNumber": 3,
+        "description": "炒红汤下肉片滑熟"
+      },
+      {
+        "stepNumber": 4,
+        "description": "连汤倒碗，铺辣椒花椒淋热油"
+      }
+    ]
+  },
+  {
+    "id": "r006",
+    "name": "辣子鸡",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "香辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 35,
+    "servings": 2,
+    "description": "外酥里嫩，满盘辣椒里找鸡丁，越嚼越香。",
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "name": "花生米",
+        "amount": 50,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "花椒",
+      "生抽",
+      "料酒",
+      "淀粉",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡丁腌制裹淀粉"
+      },
+      {
+        "stepNumber": 2,
+        "description": "中油温炸至金黄酥脆"
+      },
+      {
+        "stepNumber": 3,
+        "description": "爆香花椒干辣椒"
+      },
+      {
+        "stepNumber": 4,
+        "description": "回锅鸡丁花生米翻炒出锅"
+      }
+    ]
+  },
+  {
+    "id": "r007",
+    "name": "酸菜鱼",
+    "categories": [
+      "川菜",
+      "肉菜",
+      "汤羹"
+    ],
+    "flavors": [
+      "酸辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 35,
+    "servings": 3,
+    "description": "鱼肉嫩滑，汤底酸爽开胃。",
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "amount": 1,
+        "unit": "条"
+      },
+      {
+        "name": "酸菜",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "泡椒",
+        "amount": 30,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "姜片",
+      "料酒",
+      "白胡椒",
+      "淀粉",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鱼片腌制上浆，鱼骨熬汤"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒酸菜泡椒，加鱼汤煮开"
+      },
+      {
+        "stepNumber": 3,
+        "description": "下鱼片滑熟"
+      },
+      {
+        "stepNumber": 4,
+        "description": "撒椒圈淋热油"
+      }
+    ]
+  },
+  {
+    "id": "r008",
+    "name": "毛血旺",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 40,
+    "servings": 3,
+    "description": "麻辣鲜香，料足过瘾。",
+    "ingredients": [
+      {
+        "name": "鸭血",
+        "amount": 1,
+        "unit": "盒"
+      },
+      {
+        "name": "毛肚",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "午餐肉",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "黄豆芽",
+        "amount": 150,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "火锅底料",
+      "干辣椒",
+      "花椒",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "底菜焯水垫碗"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒红汤加开水"
+      },
+      {
+        "stepNumber": 3,
+        "description": "下食材煮熟入碗"
+      },
+      {
+        "stepNumber": 4,
+        "description": "铺辣椒花椒淋热油"
+      }
+    ]
+  },
+  {
+    "id": "r009",
+    "name": "夫妻肺片",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 45,
+    "servings": 3,
+    "description": "卤香浓郁，麻辣鲜香，凉菜经典。",
+    "ingredients": [
+      {
+        "name": "牛肚",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "牛肉",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "花生",
+        "amount": 30,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "红油",
+      "花椒粉",
+      "生抽",
+      "白糖",
+      "香菜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "牛肚牛肉卤熟切薄片"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调红油汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "拌匀撒花生香菜"
+      }
+    ]
+  },
+  {
+    "id": "r010",
+    "name": "口水鸡",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "麻辣",
+      "酸甜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 30,
+    "servings": 2,
+    "description": "皮滑肉嫩，红油料足，名号俏皮。",
+    "ingredients": [
+      {
+        "name": "三黄鸡",
+        "amount": 1,
+        "unit": "只"
+      },
+      {
+        "name": "小葱",
+        "amount": 2,
+        "unit": "根"
+      },
+      {
+        "name": "姜",
+        "amount": 1,
+        "unit": "块"
+      }
+    ],
+    "seasonings": [
+      "红油",
+      "生抽",
+      "醋",
+      "白糖",
+      "花椒粉",
+      "芝麻"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "整鸡浸熟过冰水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "斩件摆盘"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋红油汁撒芝麻葱花"
+      }
+    ]
+  },
+  {
+    "id": "r011",
+    "name": "蒜泥白肉",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "蒜香",
+      "麻辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 30,
+    "servings": 2,
+    "description": "肥瘦相间，蒜香红油，清爽不腻。",
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "大蒜",
+        "amount": 1,
+        "unit": "头"
+      }
+    ],
+    "seasonings": [
+      "红油",
+      "生抽",
+      "醋",
+      "白糖",
+      "黄瓜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "五花肉煮熟晾凉切薄片"
+      },
+      {
+        "stepNumber": 2,
+        "description": "捣蒜泥调汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "肉片铺黄瓜淋汁"
+      }
+    ]
+  },
+  {
+    "id": "r012",
+    "name": "干煸四季豆",
+    "categories": [
+      "川菜",
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "咸鲜",
+      "微辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "四季豆起皱入味，咸香下饭。",
+    "ingredients": [
+      {
+        "name": "四季豆",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "肉末",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "芽菜",
+        "amount": 30,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "干辣椒",
+      "花椒",
+      "生抽",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "四季豆拉油或干煸至起皱"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒香肉末芽菜干辣椒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "下四季豆翻炒调味"
+      }
+    ]
+  },
+  {
+    "id": "r013",
+    "name": "干煸肥肠",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "香辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 45,
+    "servings": 2,
+    "description": "肥肠干香有嚼劲，下酒一绝。",
+    "ingredients": [
+      {
+        "name": "熟肥肠",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 15,
+        "unit": "g"
+      },
+      {
+        "name": "青椒",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "花椒",
+      "生抽",
+      "料酒",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肥肠切段煸干出油"
+      },
+      {
+        "stepNumber": 2,
+        "description": "爆香花椒干辣椒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "下青椒肥肠翻炒调味"
+      }
+    ]
+  },
+  {
+    "id": "r014",
+    "name": "青椒肉丝",
+    "categories": [
+      "川菜",
+      "家常菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸鲜",
+      "微辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "最家常的下饭菜，一学就会。",
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "青椒",
+        "amount": 2,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "料酒",
+      "淀粉",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉丝腌制上浆"
+      },
+      {
+        "stepNumber": 2,
+        "description": "滑炒肉丝盛出"
+      },
+      {
+        "stepNumber": 3,
+        "description": "炒青椒回锅肉丝调味"
+      }
+    ]
+  },
+  {
+    "id": "r015",
+    "name": "盐煎肉",
+    "categories": [
+      "川菜",
+      "肉菜",
+      "家常菜"
+    ],
+    "flavors": [
+      "咸香",
+      "微辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "生爆做法，干香入味。",
+    "ingredients": [
+      {
+        "name": "二刀肉",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "青椒",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "蒜苗",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "生抽",
+      "豆豉",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉切薄片直接下锅干煸出油"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下豆瓣豆豉炒香"
+      },
+      {
+        "stepNumber": 3,
+        "description": "下青椒蒜苗炒熟调味"
+      }
+    ]
+  },
+  {
+    "id": "r016",
+    "name": "蚂蚁上树",
+    "categories": [
+      "川菜",
+      "家常菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "麻辣",
+      "咸鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "肉末扒在粉丝上，形似蚂蚁，咸香入味。",
+    "ingredients": [
+      {
+        "name": "红薯粉",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "肉末",
+        "amount": 80,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "生抽",
+      "葱",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "粉丝温水泡软"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒香肉末豆瓣酱"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加水下粉丝烧入味收汁"
+      }
+    ]
+  },
+  {
+    "id": "r017",
+    "name": "鱼香茄子",
+    "categories": [
+      "川菜",
+      "素菜",
+      "家常菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酸甜",
+      "微辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "茄子软糯，鱼香汁浓郁。",
+    "ingredients": [
+      {
+        "name": "长茄子",
+        "amount": 2,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "生抽",
+      "醋",
+      "白糖",
+      "淀粉",
+      "蒜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "茄子过油或煎软"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调鱼香汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "炒香蒜末下茄子淋汁"
+      }
+    ]
+  },
+  {
+    "id": "r018",
+    "name": "麻辣豆腐",
+    "categories": [
+      "川菜",
+      "素菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "麻婆豆腐的快手版，零失败。",
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "amount": 1,
+        "unit": "盒"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "花椒粉",
+      "生抽",
+      "淀粉"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "豆腐焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒香豆瓣加水烧豆腐"
+      },
+      {
+        "stepNumber": 3,
+        "description": "勾芡撒花椒粉"
+      }
+    ]
+  },
+  {
+    "id": "r019",
+    "name": "香辣虾",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "香辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "外酥里嫩，香辣过瘾。",
+    "ingredients": [
+      {
+        "name": "基围虾",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "name": "土豆",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "花椒",
+      "生抽",
+      "料酒",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "虾开背油炸，土豆条炸脆"
+      },
+      {
+        "stepNumber": 2,
+        "description": "爆香花椒干辣椒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "回锅虾与土豆翻炒调味"
+      }
+    ]
+  },
+  {
+    "id": "r020",
+    "name": "水煮鱼",
+    "categories": [
+      "川菜",
+      "肉菜",
+      "汤羹"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 35,
+    "servings": 3,
+    "description": "鱼片嫩白，红油透亮，麻辣鲜香。",
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "amount": 1,
+        "unit": "条"
+      },
+      {
+        "name": "黄豆芽",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "油麦菜",
+        "amount": 1,
+        "unit": "把"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "干辣椒",
+      "花椒",
+      "淀粉",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鱼片腌制上浆"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒红汤煮底菜垫碗"
+      },
+      {
+        "stepNumber": 3,
+        "description": "滑熟鱼片连汤入碗"
+      },
+      {
+        "stepNumber": 4,
+        "description": "铺椒圈淋热油"
+      }
+    ]
+  },
+  {
+    "id": "r021",
+    "name": "泡椒凤爪",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "酸辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 40,
+    "servings": 3,
+    "description": "酸辣开胃，啃着停不下来（需冷藏浸泡）。",
+    "ingredients": [
+      {
+        "name": "鸡爪",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "泡椒",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "柠檬",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "白醋",
+      "盐",
+      "姜",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡爪煮熟过冰水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加泡椒泡椒水柠檬盐醋"
+      },
+      {
+        "stepNumber": 3,
+        "description": "冷藏浸泡数小时入味"
+      }
+    ]
+  },
+  {
+    "id": "r022",
+    "name": "酸辣土豆丝",
+    "categories": [
+      "川菜",
+      "素菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酸辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "爽脆酸辣，国民下饭菜。",
+    "ingredients": [
+      {
+        "name": "土豆",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 3,
+        "unit": "个"
+      },
+      {
+        "name": "醋",
+        "amount": 2,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "花椒",
+      "生抽",
+      "盐",
+      "葱"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "土豆切丝泡水去淀粉"
+      },
+      {
+        "stepNumber": 2,
+        "description": "爆香花椒干辣椒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "下土豆丝大火快炒，沿锅淋醋"
+      }
+    ]
+  },
+  {
+    "id": "r023",
+    "name": "虎皮青椒",
+    "categories": [
+      "川菜",
+      "素菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸鲜",
+      "微辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "青椒起虎皮，软糯入味。",
+    "ingredients": [
+      {
+        "name": "青椒",
+        "amount": 4,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "醋",
+      "白糖",
+      "蒜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "青椒干煸至起皱盛出"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调生抽醋糖汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "回锅青椒淋汁收味"
+      }
+    ]
+  },
+  {
+    "id": "r024",
+    "name": "蒜苗炒肉",
+    "categories": [
+      "川菜",
+      "家常菜",
+      "下饭菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "蒜香浓郁，简单下饭。",
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "蒜苗",
+        "amount": 2,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "豆瓣酱",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "五花肉煸出油"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下豆瓣炒香"
+      },
+      {
+        "stepNumber": 3,
+        "description": "下蒜苗段大火翻炒"
+      }
+    ]
+  },
+  {
+    "id": "r025",
+    "name": "樟茶鸭",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "烟香",
+      "咸鲜"
+    ],
+    "difficulty": 4,
+    "cookingTime": 90,
+    "servings": 4,
+    "description": "熏香浓郁，皮酥肉嫩，宴客硬菜。",
+    "ingredients": [
+      {
+        "name": "仔鸭",
+        "amount": 1,
+        "unit": "只"
+      },
+      {
+        "name": "茶叶",
+        "amount": 20,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "花椒盐",
+      "料酒",
+      "糖",
+      "樟树叶"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸭焯水抹料腌入味"
+      },
+      {
+        "stepNumber": 2,
+        "description": "茶叶樟树叶熏制"
+      },
+      {
+        "stepNumber": 3,
+        "description": "蒸熟后油炸至皮酥"
+      }
+    ]
+  },
+  {
+    "id": "r026",
+    "name": "东坡肘子",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "咸鲜",
+      "酱香"
+    ],
+    "difficulty": 4,
+    "cookingTime": 120,
+    "servings": 4,
+    "description": "软糯胶糯，肥而不腻。",
+    "ingredients": [
+      {
+        "name": "猪肘",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "冰糖",
+      "料酒",
+      "姜",
+      "葱"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肘子焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒糖色加调料炖煮"
+      },
+      {
+        "stepNumber": 3,
+        "description": "小火慢炖至软糯收汁"
+      }
+    ]
+  },
+  {
+    "id": "r027",
+    "name": "甜烧白",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "甜",
+      "咸鲜"
+    ],
+    "difficulty": 3,
+    "cookingTime": 70,
+    "servings": 4,
+    "description": "糯米垫底、五花夹豆沙，甜咸交融。",
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "糯米",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "豆沙",
+        "amount": 100,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "白糖",
+      "红糖",
+      "猪油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "五花肉煮定型切片夹豆沙"
+      },
+      {
+        "stepNumber": 2,
+        "description": "糯米饭拌糖油铺碗"
+      },
+      {
+        "stepNumber": 3,
+        "description": "肉片皮朝下摆放，蒸熟倒扣"
+      }
+    ]
+  },
+  {
+    "id": "r028",
+    "name": "咸烧白",
+    "categories": [
+      "川菜",
+      "肉菜",
+      "家常菜"
+    ],
+    "flavors": [
+      "咸鲜",
+      "酱香"
+    ],
+    "difficulty": 3,
+    "cookingTime": 70,
+    "servings": 4,
+    "description": "芽菜扣肉，咸香软糯。",
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "芽菜",
+        "amount": 150,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "豆瓣酱",
+      "姜",
+      "蒜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "五花肉煮上色炸皮切片"
+      },
+      {
+        "stepNumber": 2,
+        "description": "芽菜炒香垫碗"
+      },
+      {
+        "stepNumber": 3,
+        "description": "肉片皮朝下摆放，蒸熟倒扣"
+      }
+    ]
+  },
+  {
+    "id": "r029",
+    "name": "粉蒸肉",
+    "categories": [
+      "川菜",
+      "肉菜",
+      "家常菜"
+    ],
+    "flavors": [
+      "咸鲜",
+      "五香"
+    ],
+    "difficulty": 2,
+    "cookingTime": 60,
+    "servings": 3,
+    "description": "米粉裹肉，松软喷香。",
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "蒸肉米粉",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "红薯",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "生抽",
+      "料酒",
+      "姜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉片加调料米粉拌匀"
+      },
+      {
+        "stepNumber": 2,
+        "description": "红薯垫底铺肉"
+      },
+      {
+        "stepNumber": 3,
+        "description": "上锅蒸至软糯"
+      }
+    ]
+  },
+  {
+    "id": "r030",
+    "name": "冷吃兔",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "香辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 40,
+    "servings": 2,
+    "description": "自贡名菜，麻辣干香，越冷越好吃。",
+    "ingredients": [
+      {
+        "name": "兔肉",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 30,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "花椒",
+      "生抽",
+      "料酒",
+      "盐",
+      "芝麻"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "兔肉切丁腌制"
+      },
+      {
+        "stepNumber": 2,
+        "description": "中油温炸干水分"
+      },
+      {
+        "stepNumber": 3,
+        "description": "爆香花椒干辣椒回锅翻炒撒芝麻"
+      }
+    ]
+  },
+  {
+    "id": "r031",
+    "name": "番茄炒蛋",
+    "categories": [
+      "家常菜",
+      "下饭菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "国民下饭菜，酸甜软嫩。",
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "amount": 3,
+        "unit": "个"
+      },
+      {
+        "name": "番茄",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "葱花",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "糖",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡蛋打散炒熟盛出"
+      },
+      {
+        "stepNumber": 2,
+        "description": "番茄炒出汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "倒入鸡蛋翻炒调味"
+      }
+    ]
+  },
+  {
+    "id": "r032",
+    "name": "青椒土豆丝",
+    "categories": [
+      "家常菜",
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "清爽"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "脆爽家常素菜。",
+    "ingredients": [
+      {
+        "name": "土豆",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "青椒",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "蒜",
+        "amount": 2,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "醋",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "土豆切丝泡水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "热油爆香蒜"
+      },
+      {
+        "stepNumber": 3,
+        "description": "下土豆丝青椒翻炒醋盐"
+      }
+    ]
+  },
+  {
+    "id": "r033",
+    "name": "红烧茄子",
+    "categories": [
+      "家常菜",
+      "素菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "软糯入味。",
+    "ingredients": [
+      {
+        "name": "茄子",
+        "amount": 2,
+        "unit": "根"
+      },
+      {
+        "name": "蒜",
+        "amount": 3,
+        "unit": "瓣"
+      },
+      {
+        "name": "葱",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "糖",
+      "蚝油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "茄子煎软"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调红烧汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "焖煮收汁"
+      }
+    ]
+  },
+  {
+    "id": "r034",
+    "name": "地三鲜",
+    "categories": [
+      "家常菜",
+      "素菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "土豆茄子青椒一锅出。",
+    "ingredients": [
+      {
+        "name": "土豆",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "茄子",
+        "amount": 1,
+        "unit": "根"
+      },
+      {
+        "name": "青椒",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "糖",
+      "蚝油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "食材过油"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "翻炒收汁"
+      }
+    ]
+  },
+  {
+    "id": "r035",
+    "name": "木须肉",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "木耳黄瓜肉片。",
+    "ingredients": [
+      {
+        "name": "里脊",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "木耳",
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "name": "黄瓜",
+        "amount": 1,
+        "unit": "根"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "料酒",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉片滑炒"
+      },
+      {
+        "stepNumber": 2,
+        "description": "鸡蛋炒散"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加配菜调味"
+      }
+    ]
+  },
+  {
+    "id": "r036",
+    "name": "京酱肉丝",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酱香"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "酱香浓郁，卷饼绝佳。",
+    "ingredients": [
+      {
+        "name": "里脊",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "葱白",
+        "amount": 2,
+        "unit": "根"
+      },
+      {
+        "name": "豆皮",
+        "amount": 1,
+        "unit": "张"
+      }
+    ],
+    "seasonings": [
+      "甜面酱",
+      "生抽",
+      "糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉丝滑炒"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒甜面酱"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加肉丝葱丝"
+      }
+    ]
+  },
+  {
+    "id": "r037",
+    "name": "糖醋里脊",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酸甜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 30,
+    "servings": 2,
+    "description": "外酥里嫩。",
+    "ingredients": [
+      {
+        "name": "里脊",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "淀粉",
+        "amount": 50,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "番茄酱",
+      "白糖",
+      "白醋",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "里脊裹糊炸"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调糖醋汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "回锅裹汁"
+      }
+    ]
+  },
+  {
+    "id": "r038",
+    "name": "可乐鸡翅",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "甜咸"
+    ],
+    "difficulty": 1,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "零失败招牌菜。",
+    "ingredients": [
+      {
+        "name": "鸡翅",
+        "amount": 8,
+        "unit": "个"
+      },
+      {
+        "name": "可乐",
+        "amount": 1,
+        "unit": "罐"
+      },
+      {
+        "name": "姜",
+        "amount": 2,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡翅煎香"
+      },
+      {
+        "stepNumber": 2,
+        "description": "倒入可乐生抽"
+      },
+      {
+        "stepNumber": 3,
+        "description": "收汁"
+      }
+    ]
+  },
+  {
+    "id": "r039",
+    "name": "红烧排骨",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 40,
+    "servings": 2,
+    "description": "软烂脱骨。",
+    "ingredients": [
+      {
+        "name": "排骨",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      },
+      {
+        "name": "冰糖",
+        "amount": 20,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "排骨焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒糖色"
+      },
+      {
+        "stepNumber": 3,
+        "description": "炖煮收汁"
+      }
+    ]
+  },
+  {
+    "id": "r040",
+    "name": "清蒸鲈鱼",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "原汁原味。",
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "amount": 1,
+        "unit": "条"
+      },
+      {
+        "name": "葱",
+        "amount": 2,
+        "unit": "根"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "蒸鱼豉油",
+      "料酒",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鱼身抹料"
+      },
+      {
+        "stepNumber": 2,
+        "description": "上锅蒸8分钟"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋豉油热油"
+      }
+    ]
+  },
+  {
+    "id": "r041",
+    "name": "红烧肉",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸甜"
+    ],
+    "difficulty": 3,
+    "cookingTime": 60,
+    "servings": 3,
+    "description": "肥而不腻。",
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "冰糖",
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒糖色"
+      },
+      {
+        "stepNumber": 3,
+        "description": "小火慢炖"
+      }
+    ]
+  },
+  {
+    "id": "r042",
+    "name": "酸辣土豆丝",
+    "categories": [
+      "家常菜",
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "酸辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "开胃爽口。",
+    "ingredients": [
+      {
+        "name": "土豆",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 4,
+        "unit": "个"
+      },
+      {
+        "name": "醋",
+        "amount": 2,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "土豆丝泡水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "爆香辣椒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "大火快炒醋盐"
+      }
+    ]
+  },
+  {
+    "id": "r043",
+    "name": "手撕包菜",
+    "categories": [
+      "家常菜",
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "脆嫩入味。",
+    "ingredients": [
+      {
+        "name": "包菜",
+        "amount": 1,
+        "unit": "颗"
+      },
+      {
+        "name": "蒜",
+        "amount": 2,
+        "unit": "瓣"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 3,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "醋",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "手撕包菜"
+      },
+      {
+        "stepNumber": 2,
+        "description": "爆香蒜椒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "大火翻炒"
+      }
+    ]
+  },
+  {
+    "id": "r044",
+    "name": "蒜蓉西兰花",
+    "categories": [
+      "家常菜",
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "蒜香"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "清爽健康。",
+    "ingredients": [
+      {
+        "name": "西兰花",
+        "amount": 1,
+        "unit": "颗"
+      },
+      {
+        "name": "蒜",
+        "amount": 4,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "蚝油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "西兰花焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "爆香蒜"
+      },
+      {
+        "stepNumber": 3,
+        "description": "翻炒调味"
+      }
+    ]
+  },
+  {
+    "id": "r045",
+    "name": "蚝油生菜",
+    "categories": [
+      "家常菜",
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 10,
+    "servings": 2,
+    "description": "饭店同款。",
+    "ingredients": [
+      {
+        "name": "生菜",
+        "amount": 1,
+        "unit": "颗"
+      },
+      {
+        "name": "蒜",
+        "amount": 3,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "蚝油",
+      "生抽",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "生菜焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "爆香蒜调汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋汁"
+      }
+    ]
+  },
+  {
+    "id": "r046",
+    "name": "虾仁蒸蛋",
+    "categories": [
+      "家常菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "滑嫩鲜香。",
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "虾仁",
+        "amount": 8,
+        "unit": "只"
+      },
+      {
+        "name": "温水",
+        "amount": 150,
+        "unit": "ml"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "蛋液加水过滤"
+      },
+      {
+        "stepNumber": 2,
+        "description": "半凝固放虾仁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "蒸熟淋生抽"
+      }
+    ]
+  },
+  {
+    "id": "r047",
+    "name": "西红柿鸡蛋面",
+    "categories": [
+      "家常菜",
+      "早餐",
+      "快手菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 1,
+    "description": "一碗暖胃。",
+    "ingredients": [
+      {
+        "name": "面条",
+        "amount": 1,
+        "unit": "把"
+      },
+      {
+        "name": "番茄",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "生抽",
+      "糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "炒番茄蛋"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加水煮面"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r048",
+    "name": "葱油拌面",
+    "categories": [
+      "家常菜",
+      "早餐",
+      "快手菜"
+    ],
+    "flavors": [
+      "葱香"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 1,
+    "description": "简单却上瘾。",
+    "ingredients": [
+      {
+        "name": "面条",
+        "amount": 1,
+        "unit": "把"
+      },
+      {
+        "name": "小葱",
+        "amount": 5,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "熬葱油"
+      },
+      {
+        "stepNumber": 2,
+        "description": "面条煮熟"
+      },
+      {
+        "stepNumber": 3,
+        "description": "拌入葱油酱油"
+      }
+    ]
+  },
+  {
+    "id": "r049",
+    "name": "炸酱面",
+    "categories": [
+      "家常菜",
+      "早餐"
+    ],
+    "flavors": [
+      "酱香"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 1,
+    "description": "老北京风味。",
+    "ingredients": [
+      {
+        "name": "面条",
+        "amount": 1,
+        "unit": "把"
+      },
+      {
+        "name": "肉末",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "黄酱",
+        "amount": 2,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "炒肉末酱"
+      },
+      {
+        "stepNumber": 2,
+        "description": "煮面"
+      },
+      {
+        "stepNumber": 3,
+        "description": "拌酱"
+      }
+    ]
+  },
+  {
+    "id": "r050",
+    "name": "红烧鲫鱼",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "刺少肉嫩。",
+    "ingredients": [
+      {
+        "name": "鲫鱼",
+        "amount": 1,
+        "unit": "条"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      },
+      {
+        "name": "蒜",
+        "amount": 3,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鱼煎金黄"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加料炖煮"
+      },
+      {
+        "stepNumber": 3,
+        "description": "收汁"
+      }
+    ]
+  },
+  {
+    "id": "r051",
+    "name": "啤酒鸭",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "酱香"
+    ],
+    "difficulty": 2,
+    "cookingTime": 45,
+    "servings": 3,
+    "description": "啤酒去腥增香。",
+    "ingredients": [
+      {
+        "name": "鸭",
+        "amount": 1,
+        "unit": "只"
+      },
+      {
+        "name": "啤酒",
+        "amount": 1,
+        "unit": "罐"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "冰糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸭块焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒香加啤酒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "炖煮收汁"
+      }
+    ]
+  },
+  {
+    "id": "r052",
+    "name": "黄焖鸡",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 35,
+    "servings": 2,
+    "description": "一锅出。",
+    "ingredients": [
+      {
+        "name": "鸡腿",
+        "amount": 3,
+        "unit": "个"
+      },
+      {
+        "name": "香菇",
+        "amount": 6,
+        "unit": "朵"
+      },
+      {
+        "name": "青椒",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "冰糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡块炒香"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加香菇焖"
+      },
+      {
+        "stepNumber": 3,
+        "description": "收汁放青椒"
+      }
+    ]
+  },
+  {
+    "id": "r053",
+    "name": "梅菜扣肉",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸香"
+    ],
+    "difficulty": 3,
+    "cookingTime": 70,
+    "servings": 3,
+    "description": "宴客硬菜。",
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "梅干菜",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "姜",
+        "amount": 2,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉煮定型"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炸皮切片"
+      },
+      {
+        "stepNumber": 3,
+        "description": "梅菜垫底蒸"
+      }
+    ]
+  },
+  {
+    "id": "r054",
+    "name": "粉蒸肉",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "咸香"
+    ],
+    "difficulty": 2,
+    "cookingTime": 60,
+    "servings": 3,
+    "description": "米粉裹肉香。",
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "蒸肉米粉",
+        "amount": 100,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "豆瓣酱",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉腌米粉"
+      },
+      {
+        "stepNumber": 2,
+        "description": "上锅蒸烂"
+      }
+    ]
+  },
+  {
+    "id": "r055",
+    "name": "香菇滑鸡",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "嫩滑下饭。",
+    "ingredients": [
+      {
+        "name": "鸡腿",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "香菇",
+        "amount": 8,
+        "unit": "朵"
+      },
+      {
+        "name": "姜",
+        "amount": 2,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "蚝油",
+      "淀粉"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡块腌淀粉"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒香菇"
+      },
+      {
+        "stepNumber": 3,
+        "description": "同炒调味"
+      }
+    ]
+  },
+  {
+    "id": "r056",
+    "name": "红烧鸡块",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 30,
+    "servings": 2,
+    "description": "家常炖鸡。",
+    "ingredients": [
+      {
+        "name": "鸡",
+        "amount": 1,
+        "unit": "只"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      },
+      {
+        "name": "冰糖",
+        "amount": 15,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡块炒香"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加料炖"
+      },
+      {
+        "stepNumber": 3,
+        "description": "收汁"
+      }
+    ]
+  },
+  {
+    "id": "r057",
+    "name": "西红柿鸡蛋汤",
+    "categories": [
+      "汤羹",
+      "快手菜"
+    ],
+    "flavors": [
+      "酸甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "开胃暖身。",
+    "ingredients": [
+      {
+        "name": "番茄",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "葱",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "香油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "番茄炒汁加水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "淋蛋液"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味撒葱"
+      }
+    ]
+  },
+  {
+    "id": "r058",
+    "name": "紫菜蛋花汤",
+    "categories": [
+      "汤羹",
+      "快手菜"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 8,
+    "servings": 2,
+    "description": "三分钟搞定。",
+    "ingredients": [
+      {
+        "name": "紫菜",
+        "amount": 5,
+        "unit": "g"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "虾皮",
+        "amount": 1,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "香油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "水开下紫菜"
+      },
+      {
+        "stepNumber": 2,
+        "description": "淋蛋液"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r059",
+    "name": "冬瓜排骨汤",
+    "categories": [
+      "汤羹"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 50,
+    "servings": 3,
+    "description": "清热解暑。",
+    "ingredients": [
+      {
+        "name": "排骨",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "冬瓜",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "姜",
+        "amount": 2,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "排骨焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炖煮"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加冬瓜再煮"
+      }
+    ]
+  },
+  {
+    "id": "r060",
+    "name": "莲藕排骨汤",
+    "categories": [
+      "汤羹"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 60,
+    "servings": 3,
+    "description": "粉糯滋补。",
+    "ingredients": [
+      {
+        "name": "排骨",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "莲藕",
+        "amount": 1,
+        "unit": "节"
+      },
+      {
+        "name": "姜",
+        "amount": 2,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "排骨焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "同莲藕炖"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r061",
+    "name": "鲫鱼豆腐汤",
+    "categories": [
+      "汤羹"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 30,
+    "servings": 2,
+    "description": "奶白浓汤。",
+    "ingredients": [
+      {
+        "name": "鲫鱼",
+        "amount": 1,
+        "unit": "条"
+      },
+      {
+        "name": "豆腐",
+        "amount": 1,
+        "unit": "盒"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鱼煎透"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加水煮白"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加豆腐"
+      }
+    ]
+  },
+  {
+    "id": "r062",
+    "name": "菌菇鸡汤",
+    "categories": [
+      "汤羹"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 60,
+    "servings": 3,
+    "description": "山珍鲜美。",
+    "ingredients": [
+      {
+        "name": "鸡",
+        "amount": 1,
+        "unit": "只"
+      },
+      {
+        "name": "香菇",
+        "amount": 5,
+        "unit": "朵"
+      },
+      {
+        "name": "金针菇",
+        "amount": 100,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "姜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炖煮"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加菌菇"
+      }
+    ]
+  },
+  {
+    "id": "r063",
+    "name": "罗宋汤",
+    "categories": [
+      "汤羹"
+    ],
+    "flavors": [
+      "酸甜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 50,
+    "servings": 3,
+    "description": "西式浓汤。",
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "番茄",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "土豆",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "洋葱",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "番茄酱",
+      "盐",
+      "糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "炒番茄洋葱"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加牛肉土豆炖"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r064",
+    "name": "酸辣汤",
+    "categories": [
+      "汤羹"
+    ],
+    "flavors": [
+      "酸辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "开胃醒神。",
+    "ingredients": [
+      {
+        "name": "豆腐",
+        "amount": 1,
+        "unit": "盒"
+      },
+      {
+        "name": "木耳",
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "火腿",
+        "amount": 50,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "醋",
+      "白胡椒",
+      "生抽",
+      "淀粉"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "煮配菜"
+      },
+      {
+        "stepNumber": 2,
+        "description": "淋蛋液醋胡椒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "勾芡"
+      }
+    ]
+  },
+  {
+    "id": "r065",
+    "name": "西湖牛肉羹",
+    "categories": [
+      "汤羹"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "滑嫩羹汤。",
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "香菇",
+        "amount": 3,
+        "unit": "朵"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "淀粉",
+      "白胡椒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "牛肉剁碎煮"
+      },
+      {
+        "stepNumber": 2,
+        "description": "勾芡淋蛋"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r066",
+    "name": "银耳莲子羹",
+    "categories": [
+      "汤羹",
+      "甜品"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 40,
+    "servings": 2,
+    "description": "润肺甜汤。",
+    "ingredients": [
+      {
+        "name": "银耳",
+        "amount": 1,
+        "unit": "朵"
+      },
+      {
+        "name": "莲子",
+        "amount": 20,
+        "unit": "g"
+      },
+      {
+        "name": "冰糖",
+        "amount": 30,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "冰糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "银耳泡发煮烂"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加莲子冰糖"
+      }
+    ]
+  },
+  {
+    "id": "r067",
+    "name": "绿豆汤",
+    "categories": [
+      "汤羹",
+      "甜品",
+      "快手菜"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 35,
+    "servings": 2,
+    "description": "夏日消暑。",
+    "ingredients": [
+      {
+        "name": "绿豆",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "冰糖",
+        "amount": 30,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "冰糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "绿豆煮开花"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加冰糖"
+      }
+    ]
+  },
+  {
+    "id": "r068",
+    "name": "玉米排骨汤",
+    "categories": [
+      "汤羹"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 55,
+    "servings": 3,
+    "description": "清甜润燥。",
+    "ingredients": [
+      {
+        "name": "排骨",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "玉米",
+        "amount": 2,
+        "unit": "根"
+      },
+      {
+        "name": "姜",
+        "amount": 2,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "排骨焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加玉米炖"
+      }
+    ]
+  },
+  {
+    "id": "r069",
+    "name": "萝卜牛腩汤",
+    "categories": [
+      "汤羹",
+      "肉菜"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 80,
+    "servings": 3,
+    "description": "浓郁暖身。",
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "白萝卜",
+        "amount": 1,
+        "unit": "根"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "牛腩焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炖烂"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加萝卜"
+      }
+    ]
+  },
+  {
+    "id": "r070",
+    "name": "山药排骨汤",
+    "categories": [
+      "汤羹"
+    ],
+    "flavors": [
+      "清润"
+    ],
+    "difficulty": 1,
+    "cookingTime": 55,
+    "servings": 3,
+    "description": "健脾养胃。",
+    "ingredients": [
+      {
+        "name": "排骨",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "山药",
+        "amount": 1,
+        "unit": "根"
+      },
+      {
+        "name": "姜",
+        "amount": 2,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "排骨焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加山药炖"
+      }
+    ]
+  },
+  {
+    "id": "r071",
+    "name": "小米粥",
+    "categories": [
+      "早餐",
+      "汤羹"
+    ],
+    "flavors": [
+      "清淡"
+    ],
+    "difficulty": 1,
+    "cookingTime": 30,
+    "servings": 1,
+    "description": "养胃首选。",
+    "ingredients": [
+      {
+        "name": "小米",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "水",
+        "amount": 800,
+        "unit": "ml"
+      }
+    ],
+    "seasonings": [
+      "水"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "小米洗净"
+      },
+      {
+        "stepNumber": 2,
+        "description": "小火熬稠"
+      }
+    ]
+  },
+  {
+    "id": "r072",
+    "name": "皮蛋瘦肉粥",
+    "categories": [
+      "早餐"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 40,
+    "servings": 2,
+    "description": "广式经典。",
+    "ingredients": [
+      {
+        "name": "大米",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "皮蛋",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "瘦肉",
+        "amount": 80,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "姜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "米煮粥"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加皮蛋肉丝"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r073",
+    "name": "燕麦粥",
+    "categories": [
+      "早餐",
+      "快手菜"
+    ],
+    "flavors": [
+      "清淡"
+    ],
+    "difficulty": 1,
+    "cookingTime": 10,
+    "servings": 1,
+    "description": "健康快手。",
+    "ingredients": [
+      {
+        "name": "燕麦",
+        "amount": 60,
+        "unit": "g"
+      },
+      {
+        "name": "牛奶",
+        "amount": 250,
+        "unit": "ml"
+      }
+    ],
+    "seasonings": [
+      "糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "燕麦加奶煮"
+      },
+      {
+        "stepNumber": 2,
+        "description": "糖调味"
+      }
+    ]
+  },
+  {
+    "id": "r074",
+    "name": "葱花饼",
+    "categories": [
+      "早餐",
+      "快手菜"
+    ],
+    "flavors": [
+      "葱香"
+    ],
+    "difficulty": 1,
+    "cookingTime": 20,
+    "servings": 1,
+    "description": "外酥里软。",
+    "ingredients": [
+      {
+        "name": "面粉",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "小葱",
+        "amount": 3,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "和面醒面"
+      },
+      {
+        "stepNumber": 2,
+        "description": "抹油撒葱卷起"
+      },
+      {
+        "stepNumber": 3,
+        "description": "烙熟"
+      }
+    ]
+  },
+  {
+    "id": "r075",
+    "name": "茶叶蛋",
+    "categories": [
+      "早餐",
+      "快手菜"
+    ],
+    "flavors": [
+      "卤香"
+    ],
+    "difficulty": 1,
+    "cookingTime": 30,
+    "servings": 4,
+    "description": "入味耐放。",
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "amount": 6,
+        "unit": "个"
+      },
+      {
+        "name": "红茶",
+        "amount": 5,
+        "unit": "g"
+      },
+      {
+        "name": "八角",
+        "amount": 2,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "盐",
+      "冰糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "蛋煮半熟敲裂"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加料卤煮浸泡"
+      }
+    ]
+  },
+  {
+    "id": "r076",
+    "name": "煮玉米",
+    "categories": [
+      "早餐",
+      "快手菜"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 1,
+    "description": "原味健康。",
+    "ingredients": [
+      {
+        "name": "玉米",
+        "amount": 2,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "玉米带衣煮"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加盐"
+      }
+    ]
+  },
+  {
+    "id": "r077",
+    "name": "蒸红薯",
+    "categories": [
+      "早餐",
+      "快手菜"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 20,
+    "servings": 1,
+    "description": "粗粮饱腹。",
+    "ingredients": [
+      {
+        "name": "红薯",
+        "amount": 2,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "水"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "红薯洗净"
+      },
+      {
+        "stepNumber": 2,
+        "description": "上锅蒸"
+      }
+    ]
+  },
+  {
+    "id": "r078",
+    "name": "三明治",
+    "categories": [
+      "早餐",
+      "快手菜"
+    ],
+    "flavors": [
+      "咸香"
+    ],
+    "difficulty": 1,
+    "cookingTime": 10,
+    "servings": 1,
+    "description": "西式便携。",
+    "ingredients": [
+      {
+        "name": "吐司",
+        "amount": 2,
+        "unit": "片"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "生菜",
+        "amount": 2,
+        "unit": "叶"
+      },
+      {
+        "name": "火腿",
+        "amount": 2,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "沙拉酱",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "煎蛋"
+      },
+      {
+        "stepNumber": 2,
+        "description": "叠吐司生菜火腿"
+      },
+      {
+        "stepNumber": 3,
+        "description": "对切"
+      }
+    ]
+  },
+  {
+    "id": "r079",
+    "name": "阳春面",
+    "categories": [
+      "早餐",
+      "快手菜"
+    ],
+    "flavors": [
+      "清鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 10,
+    "servings": 1,
+    "description": "清汤素面。",
+    "ingredients": [
+      {
+        "name": "面条",
+        "amount": 1,
+        "unit": "把"
+      },
+      {
+        "name": "葱花",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "香油",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "调汤底"
+      },
+      {
+        "stepNumber": 2,
+        "description": "煮面"
+      },
+      {
+        "stepNumber": 3,
+        "description": "撒葱"
+      }
+    ]
+  },
+  {
+    "id": "r080",
+    "name": "馄饨",
+    "categories": [
+      "早餐",
+      "汤羹"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 20,
+    "servings": 1,
+    "description": "皮薄馅大。",
+    "ingredients": [
+      {
+        "name": "馄饨皮",
+        "amount": 20,
+        "unit": "张"
+      },
+      {
+        "name": "肉末",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "葱花",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "香油",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "包馄饨"
+      },
+      {
+        "stepNumber": 2,
+        "description": "煮熟"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调汤底"
+      }
+    ]
+  },
+  {
+    "id": "r081",
+    "name": "小笼包",
+    "categories": [
+      "早餐"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 3,
+    "cookingTime": 50,
+    "servings": 2,
+    "description": "灌汤经典。",
+    "ingredients": [
+      {
+        "name": "面粉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "肉末",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "皮冻",
+        "amount": 100,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "姜",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "和面醒发"
+      },
+      {
+        "stepNumber": 2,
+        "description": "包入馅料"
+      },
+      {
+        "stepNumber": 3,
+        "description": "上锅蒸"
+      }
+    ]
+  },
+  {
+    "id": "r082",
+    "name": "生煎包",
+    "categories": [
+      "早餐"
+    ],
+    "flavors": [
+      "鲜香"
+    ],
+    "difficulty": 3,
+    "cookingTime": 45,
+    "servings": 2,
+    "description": "底脆汁多。",
+    "ingredients": [
+      {
+        "name": "面粉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "肉末",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "葱花",
+        "amount": 2,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "料酒",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "发面包馅"
+      },
+      {
+        "stepNumber": 2,
+        "description": "油煎底"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加水焖"
+      }
+    ]
+  },
+  {
+    "id": "r083",
+    "name": "油条",
+    "categories": [
+      "早餐"
+    ],
+    "flavors": [
+      "酥脆"
+    ],
+    "difficulty": 2,
+    "cookingTime": 30,
+    "servings": 2,
+    "description": "豆浆绝配。",
+    "ingredients": [
+      {
+        "name": "面粉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "酵母",
+        "amount": 3,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "和面醒发"
+      },
+      {
+        "stepNumber": 2,
+        "description": "拉长油炸"
+      }
+    ]
+  },
+  {
+    "id": "r084",
+    "name": "豆浆",
+    "categories": [
+      "早餐",
+      "快手菜"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 20,
+    "servings": 1,
+    "description": "自制健康。",
+    "ingredients": [
+      {
+        "name": "黄豆",
+        "amount": 100,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "黄豆泡发"
+      },
+      {
+        "stepNumber": 2,
+        "description": "打浆过滤煮"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加糖"
+      }
+    ]
+  },
+  {
+    "id": "r085",
+    "name": "肠粉",
+    "categories": [
+      "早餐"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 1,
+    "description": "广式滑肠。",
+    "ingredients": [
+      {
+        "name": "粘米粉",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "肉末",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "虾仁",
+        "amount": 30,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "米浆蒸"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加馅卷起"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋酱油"
+      }
+    ]
+  },
+  {
+    "id": "r086",
+    "name": "凉拌黄瓜",
+    "categories": [
+      "素菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "清爽"
+    ],
+    "difficulty": 1,
+    "cookingTime": 8,
+    "servings": 2,
+    "description": "开胃凉菜。",
+    "ingredients": [
+      {
+        "name": "黄瓜",
+        "amount": 2,
+        "unit": "根"
+      },
+      {
+        "name": "蒜",
+        "amount": 3,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "醋",
+      "生抽",
+      "香油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "黄瓜拍碎"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调汁拌匀"
+      }
+    ]
+  },
+  {
+    "id": "r087",
+    "name": "酸辣白菜",
+    "categories": [
+      "素菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酸辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "爽脆下饭。",
+    "ingredients": [
+      {
+        "name": "白菜",
+        "amount": 1,
+        "unit": "颗"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 4,
+        "unit": "个"
+      },
+      {
+        "name": "醋",
+        "amount": 2,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "白菜切段"
+      },
+      {
+        "stepNumber": 2,
+        "description": "爆香辣椒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "翻炒醋盐"
+      }
+    ]
+  },
+  {
+    "id": "r088",
+    "name": "干煸豆角",
+    "categories": [
+      "素菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "干香"
+    ],
+    "difficulty": 2,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "煸到起皱。",
+    "ingredients": [
+      {
+        "name": "豆角",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 5,
+        "unit": "个"
+      },
+      {
+        "name": "蒜",
+        "amount": 3,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "豆角煸干"
+      },
+      {
+        "stepNumber": 2,
+        "description": "爆香蒜椒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r089",
+    "name": "虎皮青椒",
+    "categories": [
+      "素菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "起皮入味。",
+    "ingredients": [
+      {
+        "name": "青椒",
+        "amount": 4,
+        "unit": "个"
+      },
+      {
+        "name": "蒜",
+        "amount": 2,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "醋",
+      "糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "青椒煸皮"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调汁焖"
+      }
+    ]
+  },
+  {
+    "id": "r090",
+    "name": "蒜蓉空心菜",
+    "categories": [
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "蒜香"
+    ],
+    "difficulty": 1,
+    "cookingTime": 10,
+    "servings": 2,
+    "description": "翠绿爽口。",
+    "ingredients": [
+      {
+        "name": "空心菜",
+        "amount": 1,
+        "unit": "把"
+      },
+      {
+        "name": "蒜",
+        "amount": 4,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "蚝油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "爆香蒜"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下菜翻炒"
+      }
+    ]
+  },
+  {
+    "id": "r091",
+    "name": "白灼菜心",
+    "categories": [
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "清爽"
+    ],
+    "difficulty": 1,
+    "cookingTime": 10,
+    "servings": 2,
+    "description": "粤式清爽。",
+    "ingredients": [
+      {
+        "name": "菜心",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "蒜",
+        "amount": 2,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "菜心焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "淋豉油"
+      }
+    ]
+  },
+  {
+    "id": "r092",
+    "name": "凉拌木耳",
+    "categories": [
+      "素菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酸辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 10,
+    "servings": 2,
+    "description": "爽滑开胃。",
+    "ingredients": [
+      {
+        "name": "木耳",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "蒜",
+        "amount": 3,
+        "unit": "瓣"
+      },
+      {
+        "name": "香菜",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "醋",
+      "生抽",
+      "辣椒油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "木耳泡发焯"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调汁拌"
+      }
+    ]
+  },
+  {
+    "id": "r093",
+    "name": "凉拌西红柿",
+    "categories": [
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "酸甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 5,
+    "servings": 2,
+    "description": "夏日凉菜。",
+    "ingredients": [
+      {
+        "name": "番茄",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "白糖",
+        "amount": 2,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "白糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "番茄切片"
+      },
+      {
+        "stepNumber": 2,
+        "description": "撒糖"
+      }
+    ]
+  },
+  {
+    "id": "r094",
+    "name": "糖拌西红柿",
+    "categories": [
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "酸甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 5,
+    "servings": 2,
+    "description": "童年味道。",
+    "ingredients": [
+      {
+        "name": "番茄",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "白糖",
+        "amount": 2,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "白糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "番茄切块"
+      },
+      {
+        "stepNumber": 2,
+        "description": "撒糖"
+      }
+    ]
+  },
+  {
+    "id": "r095",
+    "name": "清炒时蔬",
+    "categories": [
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "清淡"
+    ],
+    "difficulty": 1,
+    "cookingTime": 8,
+    "servings": 2,
+    "description": "少油健康。",
+    "ingredients": [
+      {
+        "name": "时蔬",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "蒜",
+        "amount": 2,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "爆香蒜"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下菜快炒"
+      }
+    ]
+  },
+  {
+    "id": "r096",
+    "name": "香菇青菜",
+    "categories": [
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 10,
+    "servings": 2,
+    "description": "素净鲜美。",
+    "ingredients": [
+      {
+        "name": "青菜",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "香菇",
+        "amount": 5,
+        "unit": "朵"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "蚝油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "香菇炒香"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下青菜"
+      }
+    ]
+  },
+  {
+    "id": "r097",
+    "name": "水煮肉片",
+    "categories": [
+      "川菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 30,
+    "servings": 2,
+    "description": "麻辣鲜香。",
+    "ingredients": [
+      {
+        "name": "里脊",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "豆芽",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 8,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "花椒",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉片滑熟"
+      },
+      {
+        "stepNumber": 2,
+        "description": "铺豆芽"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋辣油"
+      }
+    ]
+  },
+  {
+    "id": "r098",
+    "name": "辣子鸡",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "香辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 35,
+    "servings": 2,
+    "description": "干香酥脆。",
+    "ingredients": [
+      {
+        "name": "鸡腿",
+        "amount": 3,
+        "unit": "个"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 30,
+        "unit": "个"
+      },
+      {
+        "name": "花椒",
+        "amount": 1,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "料酒",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡块炸酥"
+      },
+      {
+        "stepNumber": 2,
+        "description": "爆香辣椒花椒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "回锅"
+      }
+    ]
+  },
+  {
+    "id": "r099",
+    "name": "回锅肉",
+    "categories": [
+      "川菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "川菜之王。",
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "青椒",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "豆瓣酱",
+        "amount": 2,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "甜面酱"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉煮切片"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒出灯盏窝"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加豆瓣青椒"
+      }
+    ]
+  },
+  {
+    "id": "r100",
+    "name": "鱼香茄子",
+    "categories": [
+      "川菜",
+      "素菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酸甜微辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "比肉还香。",
+    "ingredients": [
+      {
+        "name": "茄子",
+        "amount": 2,
+        "unit": "根"
+      },
+      {
+        "name": "蒜",
+        "amount": 3,
+        "unit": "瓣"
+      },
+      {
+        "name": "豆瓣酱",
+        "amount": 1,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "醋",
+      "糖",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "茄子煎软"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒鱼香汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "焖收"
+      }
+    ]
+  },
+  {
+    "id": "r101",
+    "name": "酸菜鱼",
+    "categories": [
+      "川菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "酸辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 40,
+    "servings": 3,
+    "description": "酸爽嫩滑。",
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "amount": 1,
+        "unit": "条"
+      },
+      {
+        "name": "酸菜",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 6,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "泡椒",
+      "生抽",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鱼片滑熟"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒酸菜煮汤"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋辣油"
+      }
+    ]
+  },
+  {
+    "id": "r102",
+    "name": "毛血旺",
+    "categories": [
+      "川菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 40,
+    "servings": 3,
+    "description": "重口过瘾。",
+    "ingredients": [
+      {
+        "name": "鸭血",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "毛肚",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "午餐肉",
+        "amount": 100,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "花椒",
+      "干辣椒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "炒底料"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下食材煮"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋辣油"
+      }
+    ]
+  },
+  {
+    "id": "r103",
+    "name": "夫妻肺片",
+    "categories": [
+      "川菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 35,
+    "servings": 2,
+    "description": "卤香红油。",
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "牛肚",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "芹菜",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "卤料",
+      "红油",
+      "花椒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "牛肉牛肚卤熟"
+      },
+      {
+        "stepNumber": 2,
+        "description": "切片拌红油"
+      }
+    ]
+  },
+  {
+    "id": "r104",
+    "name": "担担面",
+    "categories": [
+      "川菜",
+      "早餐"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 20,
+    "servings": 1,
+    "description": "成都名面。",
+    "ingredients": [
+      {
+        "name": "面条",
+        "amount": 1,
+        "unit": "把"
+      },
+      {
+        "name": "肉末",
+        "amount": 80,
+        "unit": "g"
+      },
+      {
+        "name": "花生",
+        "amount": 20,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "花椒粉",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "炒肉末"
+      },
+      {
+        "stepNumber": 2,
+        "description": "煮面"
+      },
+      {
+        "stepNumber": 3,
+        "description": "拌麻酱辣油"
+      }
+    ]
+  },
+  {
+    "id": "r105",
+    "name": "钟水饺",
+    "categories": [
+      "川菜",
+      "早餐"
+    ],
+    "flavors": [
+      "红油"
+    ],
+    "difficulty": 2,
+    "cookingTime": 30,
+    "servings": 1,
+    "description": "甜辣红油。",
+    "ingredients": [
+      {
+        "name": "饺子皮",
+        "amount": 20,
+        "unit": "张"
+      },
+      {
+        "name": "肉末",
+        "amount": 150,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "红油",
+      "生抽",
+      "糖",
+      "蒜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "包饺子"
+      },
+      {
+        "stepNumber": 2,
+        "description": "煮熟"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋红油汁"
+      }
+    ]
+  },
+  {
+    "id": "r106",
+    "name": "醪糟汤圆",
+    "categories": [
+      "汤羹",
+      "甜品",
+      "川菜"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "酒香暖甜。",
+    "ingredients": [
+      {
+        "name": "汤圆",
+        "amount": 10,
+        "unit": "个"
+      },
+      {
+        "name": "醪糟",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "冰糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "醪糟煮开"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下汤圆"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋蛋"
+      }
+    ]
+  },
+  {
+    "id": "r107",
+    "name": "粉蒸排骨",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸香"
+    ],
+    "difficulty": 2,
+    "cookingTime": 55,
+    "servings": 3,
+    "description": "米粉裹排骨。",
+    "ingredients": [
+      {
+        "name": "排骨",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "蒸肉米粉",
+        "amount": 100,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "豆瓣酱",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "排骨腌米粉"
+      },
+      {
+        "stepNumber": 2,
+        "description": "上锅蒸"
+      }
+    ]
+  },
+  {
+    "id": "r108",
+    "name": "糖醋排骨",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酸甜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 40,
+    "servings": 2,
+    "description": "孩子最爱。",
+    "ingredients": [
+      {
+        "name": "排骨",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "冰糖",
+        "amount": 30,
+        "unit": "g"
+      },
+      {
+        "name": "醋",
+        "amount": 3,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "料酒",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "排骨炸"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒糖醋汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "裹汁"
+      }
+    ]
+  },
+  {
+    "id": "r109",
+    "name": "孜然羊肉",
+    "categories": [
+      "肉菜",
+      "家常菜"
+    ],
+    "flavors": [
+      "孜然"
+    ],
+    "difficulty": 2,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "孜香浓郁。",
+    "ingredients": [
+      {
+        "name": "羊肉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "孜然",
+        "amount": 2,
+        "unit": "勺"
+      },
+      {
+        "name": "洋葱",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "盐",
+      "辣椒粉"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "羊肉快炒"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加洋葱孜然"
+      }
+    ]
+  },
+  {
+    "id": "r110",
+    "name": "红烧牛肉",
+    "categories": [
+      "肉菜",
+      "家常菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 3,
+    "cookingTime": 70,
+    "servings": 3,
+    "description": "筋肉软烂。",
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      },
+      {
+        "name": "冰糖",
+        "amount": 20,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "牛肉焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒糖色"
+      },
+      {
+        "stepNumber": 3,
+        "description": "炖烂"
+      }
+    ]
+  },
+  {
+    "id": "r111",
+    "name": "卤牛肉",
+    "categories": [
+      "肉菜",
+      "家常菜"
+    ],
+    "flavors": [
+      "卤香"
+    ],
+    "difficulty": 3,
+    "cookingTime": 80,
+    "servings": 3,
+    "description": "冷切佳品。",
+    "ingredients": [
+      {
+        "name": "牛腱",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "八角",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "桂皮",
+        "amount": 1,
+        "unit": "块"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "盐",
+      "冰糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "牛肉焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "卤料煮"
+      },
+      {
+        "stepNumber": 3,
+        "description": "浸泡入味"
+      }
+    ]
+  },
+  {
+    "id": "r112",
+    "name": "红烧狮子头",
+    "categories": [
+      "肉菜",
+      "家常菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 50,
+    "servings": 3,
+    "description": "大肉丸子。",
+    "ingredients": [
+      {
+        "name": "肉末",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "马蹄",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "料酒",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉丸炸定"
+      },
+      {
+        "stepNumber": 2,
+        "description": "红烧炖"
+      }
+    ]
+  },
+  {
+    "id": "r113",
+    "name": "叉烧",
+    "categories": [
+      "肉菜",
+      "家常菜"
+    ],
+    "flavors": [
+      "蜜汁"
+    ],
+    "difficulty": 2,
+    "cookingTime": 60,
+    "servings": 2,
+    "description": "港式蜜汁。",
+    "ingredients": [
+      {
+        "name": "梅花肉",
+        "amount": 400,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "叉烧酱",
+      "蜂蜜",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉腌酱"
+      },
+      {
+        "stepNumber": 2,
+        "description": "烤制刷蜜"
+      }
+    ]
+  },
+  {
+    "id": "r114",
+    "name": "烤鸡翅",
+    "categories": [
+      "肉菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "咸香"
+    ],
+    "difficulty": 1,
+    "cookingTime": 35,
+    "servings": 2,
+    "description": "烤箱懒人菜。",
+    "ingredients": [
+      {
+        "name": "鸡翅",
+        "amount": 8,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "蚝油",
+      "蜂蜜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡翅腌"
+      },
+      {
+        "stepNumber": 2,
+        "description": "烤箱烤"
+      }
+    ]
+  },
+  {
+    "id": "r115",
+    "name": "蚂蚁上树",
+    "categories": [
+      "川菜",
+      "家常菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸辣"
+    ],
+    "difficulty": 2,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "粉丝吸味。",
+    "ingredients": [
+      {
+        "name": "粉丝",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "肉末",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "豆瓣酱",
+        "amount": 1,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "粉丝泡软"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒肉末豆瓣"
+      },
+      {
+        "stepNumber": 3,
+        "description": "同煮"
+      }
+    ]
+  },
+  {
+    "id": "r116",
+    "name": "宫保虾球",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "糊辣荔枝口"
+    ],
+    "difficulty": 2,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "虾球弹嫩。",
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 6,
+        "unit": "个"
+      },
+      {
+        "name": "花生",
+        "amount": 30,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "醋",
+      "糖",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "虾仁滑炒"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调碗汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "加花生"
+      }
+    ]
+  },
+  {
+    "id": "r117",
+    "name": "西葫芦炒鸡蛋",
+    "categories": [
+      "家常菜",
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "清淡"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "清爽小炒。",
+    "ingredients": [
+      {
+        "name": "西葫芦",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "蒜",
+        "amount": 2,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡蛋炒散"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下西葫芦"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r118",
+    "name": "鸡蛋羹",
+    "categories": [
+      "家常菜",
+      "快手菜",
+      "早餐"
+    ],
+    "flavors": [
+      "嫩"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 1,
+    "description": "婴儿级软嫩。",
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "温水",
+        "amount": 150,
+        "unit": "ml"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "蛋加水过滤"
+      },
+      {
+        "stepNumber": 2,
+        "description": "蒸熟淋生抽"
+      }
+    ]
+  },
+  {
+    "id": "r119",
+    "name": "蒜苔炒肉",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "脆嫩下饭。",
+    "ingredients": [
+      {
+        "name": "蒜苔",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "肉丝",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "蒜",
+        "amount": 2,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "肉丝滑炒"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下蒜苔"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r120",
+    "name": "腐竹烧肉",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 35,
+    "servings": 2,
+    "description": "豆香肉香。",
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "腐竹",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "姜",
+        "amount": 2,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "腐竹泡软"
+      },
+      {
+        "stepNumber": 2,
+        "description": "肉煸炒"
+      },
+      {
+        "stepNumber": 3,
+        "description": "同烧"
+      }
+    ]
+  },
+  {
+    "id": "r121",
+    "name": "土豆烧牛肉",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 3,
+    "cookingTime": 70,
+    "servings": 3,
+    "description": "软糯入味。",
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "土豆",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "胡萝卜",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "牛肉炖烂"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加土豆胡萝卜"
+      }
+    ]
+  },
+  {
+    "id": "r122",
+    "name": "南瓜浓汤",
+    "categories": [
+      "汤羹",
+      "甜品"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "丝滑暖汤。",
+    "ingredients": [
+      {
+        "name": "南瓜",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "牛奶",
+        "amount": 200,
+        "unit": "ml"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "南瓜蒸熟"
+      },
+      {
+        "stepNumber": 2,
+        "description": "打成泥加奶"
+      }
+    ]
+  },
+  {
+    "id": "r123",
+    "name": "红豆汤",
+    "categories": [
+      "汤羹",
+      "甜品"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 40,
+    "servings": 2,
+    "description": "补血甜汤。",
+    "ingredients": [
+      {
+        "name": "红豆",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "冰糖",
+        "amount": 30,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "冰糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "红豆煮烂"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加冰糖"
+      }
+    ]
+  },
+  {
+    "id": "r124",
+    "name": "酒酿圆子",
+    "categories": [
+      "汤羹",
+      "甜品"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "暖身甜汤。",
+    "ingredients": [
+      {
+        "name": "小圆子",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "醪糟",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "冰糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "圆子煮浮"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加醪糟蛋"
+      }
+    ]
+  },
+  {
+    "id": "r125",
+    "name": "皮蛋拌豆腐",
+    "categories": [
+      "素菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 8,
+    "servings": 2,
+    "description": "凉拌快手。",
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "amount": 1,
+        "unit": "盒"
+      },
+      {
+        "name": "皮蛋",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "葱花",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "香油",
+      "辣椒油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "豆腐切块"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加皮蛋"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋汁"
+      }
+    ]
+  },
+  {
+    "id": "r126",
+    "name": "凉拌海带丝",
+    "categories": [
+      "素菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酸辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 10,
+    "servings": 2,
+    "description": "清爽低卡。",
+    "ingredients": [
+      {
+        "name": "海带丝",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "蒜",
+        "amount": 3,
+        "unit": "瓣"
+      },
+      {
+        "name": "醋",
+        "amount": 2,
+        "unit": "勺"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "辣椒油",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "海带焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调汁拌"
+      }
+    ]
+  },
+  {
+    "id": "r127",
+    "name": "葱爆羊肉",
+    "categories": [
+      "肉菜",
+      "家常菜"
+    ],
+    "flavors": [
+      "葱香"
+    ],
+    "difficulty": 2,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "快火爆炒。",
+    "ingredients": [
+      {
+        "name": "羊肉",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "大葱",
+        "amount": 2,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "料酒",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "羊肉滑炒"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下葱段"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r128",
+    "name": "椒盐排条",
+    "categories": [
+      "肉菜",
+      "家常菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "咸香"
+    ],
+    "difficulty": 2,
+    "cookingTime": 30,
+    "servings": 2,
+    "description": "外酥里嫩。",
+    "ingredients": [
+      {
+        "name": "里脊",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "淀粉",
+        "amount": 50,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "椒盐",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "里脊裹糊炸"
+      },
+      {
+        "stepNumber": 2,
+        "description": "撒椒盐"
+      }
+    ]
+  },
+  {
+    "id": "r129",
+    "name": "番茄牛腩",
+    "categories": [
+      "肉菜",
+      "家常菜",
+      "汤羹"
+    ],
+    "flavors": [
+      "酸甜"
+    ],
+    "difficulty": 3,
+    "cookingTime": 75,
+    "servings": 3,
+    "description": "番茄浓郁。",
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "番茄",
+        "amount": 3,
+        "unit": "个"
+      },
+      {
+        "name": "土豆",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "糖",
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "牛腩炖烂"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加番茄土豆"
+      }
+    ]
+  },
+  {
+    "id": "r130",
+    "name": "香菇菜心",
+    "categories": [
+      "素菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "清爽双素。",
+    "ingredients": [
+      {
+        "name": "菜心",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "香菇",
+        "amount": 6,
+        "unit": "朵"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "蚝油"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "香菇炒香"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下菜心"
+      }
+    ]
+  },
+  {
+    "id": "r131",
+    "name": "虾仁炒蛋",
+    "categories": [
+      "家常菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "快手高蛋白。",
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "鸡蛋",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "葱",
+        "amount": 1,
+        "unit": "根"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡蛋炒散"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下虾仁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r132",
+    "name": "红烧带鱼",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "咸鲜"
+    ],
+    "difficulty": 2,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "海味家常。",
+    "ingredients": [
+      {
+        "name": "带鱼",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      },
+      {
+        "name": "蒜",
+        "amount": 3,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "带鱼煎"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加料烧"
+      }
+    ]
+  },
+  {
+    "id": "r133",
+    "name": "醋溜白菜",
+    "categories": [
+      "素菜",
+      "快手菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "酸辣"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "酸甜开胃。",
+    "ingredients": [
+      {
+        "name": "白菜",
+        "amount": 1,
+        "unit": "颗"
+      },
+      {
+        "name": "醋",
+        "amount": 2,
+        "unit": "勺"
+      },
+      {
+        "name": "干辣椒",
+        "amount": 3,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "盐",
+      "糖"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "白菜炒软"
+      },
+      {
+        "stepNumber": 2,
+        "description": "淋醋汁"
+      }
+    ]
+  },
+  {
+    "id": "r134",
+    "name": "地锅鸡",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "酱香"
+    ],
+    "difficulty": 3,
+    "cookingTime": 55,
+    "servings": 3,
+    "description": "贴饼炖鸡。",
+    "ingredients": [
+      {
+        "name": "鸡",
+        "amount": 1,
+        "unit": "只"
+      },
+      {
+        "name": "面粉",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "姜",
+        "amount": 3,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "老抽",
+      "豆瓣酱"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡块炖"
+      },
+      {
+        "stepNumber": 2,
+        "description": "贴面饼"
+      },
+      {
+        "stepNumber": 3,
+        "description": "收汁"
+      }
+    ]
+  },
+  {
+    "id": "r135",
+    "name": "麻辣香锅",
+    "categories": [
+      "川菜",
+      "家常菜",
+      "下饭菜"
+    ],
+    "flavors": [
+      "麻辣"
+    ],
+    "difficulty": 3,
+    "cookingTime": 35,
+    "servings": 3,
+    "description": "一锅百搭。",
+    "ingredients": [
+      {
+        "name": "虾",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "午餐肉",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "藕",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "西兰花",
+        "amount": 100,
+        "unit": "g"
+      }
+    ],
+    "seasonings": [
+      "豆瓣酱",
+      "花椒",
+      "干辣椒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "食材焯熟"
+      },
+      {
+        "stepNumber": 2,
+        "description": "炒底料"
+      },
+      {
+        "stepNumber": 3,
+        "description": "同炒"
+      }
+    ]
+  },
+  {
+    "id": "r136",
+    "name": "培根炒卷心菜",
+    "categories": [
+      "家常菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "咸香"
+    ],
+    "difficulty": 1,
+    "cookingTime": 12,
+    "servings": 2,
+    "description": "西式小炒。",
+    "ingredients": [
+      {
+        "name": "卷心菜",
+        "amount": 1,
+        "unit": "颗"
+      },
+      {
+        "name": "培根",
+        "amount": 4,
+        "unit": "片"
+      },
+      {
+        "name": "蒜",
+        "amount": 2,
+        "unit": "瓣"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "黑胡椒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "培根炒香"
+      },
+      {
+        "stepNumber": 2,
+        "description": "下卷心菜"
+      },
+      {
+        "stepNumber": 3,
+        "description": "调味"
+      }
+    ]
+  },
+  {
+    "id": "r137",
+    "name": "蒸蛋羹虾仁",
+    "categories": [
+      "家常菜",
+      "快手菜",
+      "早餐"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 15,
+    "servings": 2,
+    "description": "双倍鲜。",
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "虾仁",
+        "amount": 6,
+        "unit": "只"
+      },
+      {
+        "name": "温水",
+        "amount": 150,
+        "unit": "ml"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "生抽"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "蛋液加水蒸"
+      },
+      {
+        "stepNumber": 2,
+        "description": "放虾仁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "淋生抽"
+      }
+    ]
+  },
+  {
+    "id": "r138",
+    "name": "上汤娃娃菜",
+    "categories": [
+      "汤羹",
+      "家常菜",
+      "素菜"
+    ],
+    "flavors": [
+      "鲜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 20,
+    "servings": 2,
+    "description": "高汤青菜。",
+    "ingredients": [
+      {
+        "name": "娃娃菜",
+        "amount": 1,
+        "unit": "颗"
+      },
+      {
+        "name": "皮蛋",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "咸蛋",
+        "amount": 1,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "盐",
+      "蒜"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "蒜爆香"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加高汤煮菜"
+      }
+    ]
+  },
+  {
+    "id": "r139",
+    "name": "萝卜炖排骨",
+    "categories": [
+      "汤羹",
+      "家常菜"
+    ],
+    "flavors": [
+      "清甜"
+    ],
+    "difficulty": 1,
+    "cookingTime": 60,
+    "servings": 3,
+    "description": "清润滋补。",
+    "ingredients": [
+      {
+        "name": "排骨",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "白萝卜",
+        "amount": 1,
+        "unit": "根"
+      },
+      {
+        "name": "姜",
+        "amount": 2,
+        "unit": "片"
+      }
+    ],
+    "seasonings": [
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "排骨焯水"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加萝卜炖"
+      }
+    ]
+  },
+  {
+    "id": "r140",
+    "name": "咖喱鸡",
+    "categories": [
+      "家常菜",
+      "肉菜"
+    ],
+    "flavors": [
+      "咖喱"
+    ],
+    "difficulty": 2,
+    "cookingTime": 35,
+    "servings": 2,
+    "description": "异域下饭。",
+    "ingredients": [
+      {
+        "name": "鸡腿",
+        "amount": 2,
+        "unit": "个"
+      },
+      {
+        "name": "土豆",
+        "amount": 1,
+        "unit": "个"
+      },
+      {
+        "name": "胡萝卜",
+        "amount": 1,
+        "unit": "根"
+      },
+      {
+        "name": "咖喱块",
+        "amount": 2,
+        "unit": "块"
+      }
+    ],
+    "seasonings": [
+      "盐"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡块炒"
+      },
+      {
+        "stepNumber": 2,
+        "description": "加土豆胡萝卜"
+      },
+      {
+        "stepNumber": 3,
+        "description": "放咖喱块"
+      }
+    ]
+  },
+  {
+    "id": "r141",
+    "name": "照烧鸡腿",
+    "categories": [
+      "家常菜",
+      "肉菜",
+      "快手菜"
+    ],
+    "flavors": [
+      "甜咸"
+    ],
+    "difficulty": 1,
+    "cookingTime": 25,
+    "servings": 2,
+    "description": "日式风味。",
+    "ingredients": [
+      {
+        "name": "鸡腿",
+        "amount": 2,
+        "unit": "个"
+      }
+    ],
+    "seasonings": [
+      "生抽",
+      "蜂蜜",
+      "料酒"
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "description": "鸡腿煎"
+      },
+      {
+        "stepNumber": 2,
+        "description": "调照烧汁"
+      },
+      {
+        "stepNumber": 3,
+        "description": "收汁"
+      }
+    ]
+  }
+]

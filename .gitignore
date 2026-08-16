@@ -1,0 +1,72 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ / Android Studio related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/Flutter.framework/Flutter
+**/ios/Flutter/Flutter.framework/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/app.flx
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Flutter.xcworkspace
+**/ios/Flutter/Runner.xcworkspace
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/android/**/gradle-wrapper.jar
+.gradle/
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+**/android/legacy
+**/android/app/debug_signing.properties
+**/android/app/profile_signing.properties
+**/android/app/release_signing.properties
+*.signing/
+**/.dart_tool
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/android/.gradle
+**/android/app/.cxx/
+**/android/.cxx/
+.dart_tool/
+.flutter-plugins-dependencies
+build/
+
+# Coverage
+coverage/
+
+# Symbols
+app.*.symbols
+
+# Local secrets / signing
+*.jks
+*.keystore
+
+# WorkBuddy project memory (contains local personal data, do not publish)
+.workbuddy/
+
+# Exceptions
+!**/flutter/**/gradle-wrapper.jar
+!**/flutter/**/gradle-wrapper.properties
+!**/packages/flutter_tools/lib/src/build_runner/**/gradle-wrapper.jar
