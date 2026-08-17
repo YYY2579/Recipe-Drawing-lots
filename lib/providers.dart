@@ -143,18 +143,17 @@ final cookingStatsProvider =
     FutureProvider.family<double, StatsPeriod>((ref, period) async {
   final db = ref.watch(databaseProvider);
   final now = DateTime.now();
-  late final DateTime from;
-  switch (period) {
-    case StatsPeriod.today:
-      from = DateTime(now.year, now.month, now.day);
-    case StatsPeriod.week:
-      final monday = now.subtract(Duration(days: now.weekday - 1));
-      from = DateTime(monday.year, monday.month, monday.day);
-    case StatsPeriod.month:
-      from = DateTime(now.year, now.month, 1);
-    case StatsPeriod.all:
-      from = DateTime(2000);
-  }
+  // 用 switch expression 保证每个分支都终止并返回独立值；
+  // 原 switch 语句每个 case 都缺 break/return，存在 fall-through 隐患。
+  final from = switch (period) {
+    StatsPeriod.today => DateTime(now.year, now.month, now.day),
+    StatsPeriod.week => DateTime(
+        now.subtract(Duration(days: now.weekday - 1)).year,
+        now.subtract(Duration(days: now.weekday - 1)).month,
+        now.subtract(Duration(days: now.weekday - 1)).day),
+    StatsPeriod.month => DateTime(now.year, now.month, 1),
+    StatsPeriod.all => DateTime(2000),
+  };
   return db.totalSpentBetween(from, now);
 });
 

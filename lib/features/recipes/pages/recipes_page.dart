@@ -5,22 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:what_to_eat/app/theme.dart';
+import 'package:what_to_eat/core/constants/app_constants.dart';
 import 'package:what_to_eat/core/database/app_database.dart';
 import 'package:what_to_eat/providers.dart';
 import 'package:what_to_eat/shared/widgets/app_scaffold.dart';
 import 'package:what_to_eat/shared/widgets/recipe_grid.dart';
-
-const List<String> _kCategories = [
-  '川菜',
-  '家常菜',
-  '下饭菜',
-  '快手菜',
-  '早餐',
-  '汤羹',
-  '甜品',
-  '素菜',
-  '肉菜',
-];
 
 /// 菜谱库：搜索 + 分类筛选 + 双列卡片网格。
 class RecipesPage extends ConsumerStatefulWidget {
@@ -97,7 +86,7 @@ class _RecipesPageState extends ConsumerState<RecipesPage> {
                   selected: _selected.isEmpty,
                   onTap: () => setState(() => _selected.clear()),
                 ),
-                ..._kCategories.map((c) => _FilterChip(
+                ...kRecipeCategories.map((c) => _FilterChip(
                       label: c,
                       selected: _selected.contains(c),
                       onTap: () => setState(() {
@@ -153,6 +142,8 @@ class _RecipesPageState extends ConsumerState<RecipesPage> {
       await ref.read(databaseProvider).deleteRecipe(r.id);
       ref.invalidate(allRecipesProvider);
       ref.invalidate(favoriteRecipesProvider);
+      // 签池候选 / 首页抽签列表同步刷新，避免显示已删除的菜。
+      ref.invalidate(poolRecipesProvider);
     }
   }
 }

@@ -9,7 +9,9 @@ android {
     // 运行期 flutter.compileSdkVersion 解析为 34（Flutter 3.47.0 内置 gradle 插件 jar 的硬编码值），
     // 但传递依赖 flutter_plugin_android_lifecycle 要求 >=36，故显式写 36 以通过 AAR 元数据检查。
     compileSdk = 36
-    // ndkVersion = flutter.ndkVersion  // 注释以跳过 NDK 下载：本 App 为纯 Dart、无 JNI/原生 C++ 代码，.so 均预编译，无需 NDK 工具链
+    // 该工程 sqlite3 需要 NDK 编译。显式指定本地已安装的 28.2 版本，
+    // 避免 Gradle 触发 sdkmanager 重新下载（网络环境下载大包易损坏）。
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

@@ -149,10 +149,18 @@ class AppDatabase extends _$AppDatabase {
   // ---------- 菜谱 增删改 ----------
   Future<void> updateRecipe(RecipeData r) => update(recipes).replace(r);
 
-  Future<void> deleteRecipeComponents(String id) async {
+  /// 删除菜谱的详情组件（食材 / 调料 / 步骤），保留签池关联。
+  /// 编辑菜谱保存时用它「先清空再重插」，避免误删池内关联。
+  Future<void> deleteRecipeDetailComponents(String id) async {
     await (delete(ingredients)..where((t) => t.recipeId.equals(id))).go();
     await (delete(seasonings)..where((t) => t.recipeId.equals(id))).go();
     await (delete(recipeSteps)..where((t) => t.recipeId.equals(id))).go();
+  }
+
+  /// 删除菜谱及其全部关联（详情组件 + 签池关联）。
+  /// 用于整菜删除、备份导入重建关联。
+  Future<void> deleteRecipeComponents(String id) async {
+    await deleteRecipeDetailComponents(id);
     await (delete(poolRecipes)..where((t) => t.recipeId.equals(id))).go();
   }
 
@@ -228,6 +236,20 @@ class AppDatabase extends _$AppDatabase {
       createdAt: Value(DateTime.now()),
       note: Value(note),
     ));
+  }
+
+  /// 查询某天（00:00）的主记录，用于按天合并 / 改日期冲突检测。
+  Future<CookingRecordData?> recordOnDay(DateTime day) async {
+    final start = DateTime(day.year, day.month, day.day);
+    return (select(cookingRecords)..where((t) => t.recordDate.equals(start)))
+        .getSingleOrNull();
+  }
+
+  /// 更新主记录日期（补录 / 改日期），日期截断到当天 00:00。
+  Future<void> updateCookingRecordDate(int id, DateTime day) async {
+    final start = DateTime(day.year, day.month, day.day);
+    await (update(cookingRecords)..where((t) => t.id.equals(id)))
+        .write(CookingRecordsCompanion(recordDate: Value(start)));
   }
 
   Future<void> insertCookingItem(int recordId, String dishName,

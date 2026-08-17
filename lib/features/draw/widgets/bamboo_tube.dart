@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 /// 纯 Flutter 绘制的伪 3D 竹筒（签筒），与全局「轻国风·暖木」主题协调。
 ///
-/// 早期版本用 flutter_3d_controller（WebView + WebGL 渲染 49MB GLB），在鸿蒙 / 部分设备
-/// WebGL 不可用，竹筒永远渲染不出。现改为纯 Flutter 绘制：横向渐变模拟圆柱光照 +
-/// 暖白金高光 + 精致竹节 + 顶部签条 + 暖棕落地投影，配合 Transform 摇晃动画，
-/// 任何设备稳定显示，且不依赖重型 WebView。
+/// 早前版本用 flutter_3d_controller（WebView + WebGL 渲染 49MB GLB），在部分设备
+/// WebGL 不可用导致竹筒渲染不出。本实现改为纯 Flutter `CustomPainter`：
+/// 暖木色上宽下窄梯形筒身 + 木纹 / 竹节 + 内凹椭圆开口 + 筒内悬浮的多根签条 +
+/// 椭圆落地投影，任何设备稳定显示，不依赖重型 WebView。
 ///
 /// 对外保留 [BambooTube3D] / [BambooTube3DState] / [shake()] 接口，主页无需改动。
 class BambooTube3D extends StatefulWidget {
@@ -24,7 +24,7 @@ class BambooTube3DState extends State<BambooTube3D>
   @override
   void initState() {
     super.initState();
-    // 延长到约 1.6s，让「摇一摇」有完整的体感，与抽签音效节奏协调。
+    // 约 1.6s，让「摇一摇」有完整体感，与抽签音效节奏协调。
     _ctrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1600),
@@ -42,8 +42,7 @@ class BambooTube3DState extends State<BambooTube3D>
   }
 
   /// 摇晃动画：绕底部中心左右摆动，模拟竹筒摇签。
-  /// 返回 Future，动画完整播放结束后 resolve，供主页在「摇完」之后再展示结果，
-  /// 从而让摇签音效与动画节奏协调、用户获得完整的摇签体验。
+  /// 返回 Future，动画完整播放结束后 resolve，供主页在「摇完」之后再展示结果。
   Future<void> shake() async {
     if (_shaking) return;
     if (!mounted) return;
@@ -68,7 +67,7 @@ class BambooTube3DState extends State<BambooTube3D>
       animation: _tilt,
       builder: (context, child) => Transform.rotate(
         angle: _tilt.value,
-        alignment: Alignment.bottomCenter,
+        alignment: const Alignment(0, 2.2), // 绕筒底中心摆动
         child: child,
       ),
       child: const _BambooBody(),
@@ -76,214 +75,203 @@ class BambooTube3DState extends State<BambooTube3D>
   }
 }
 
-/// 竹筒本体：自然竹色（橄榄青绿），与主题 wood / red 协调，稳重不刺眼。
+/// 竹筒本体（CustomPainter）。
 class _BambooBody extends StatelessWidget {
   const _BambooBody();
 
-  static const double width = 150;
-  static const double height = 236;
+  static const double width = 172;
+  static const double height = 252;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
       height: height,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // 暖棕落地投影（模糊，让竹筒「落地」）
-          Positioned(
-            bottom: 0,
-            child: Container(
-              width: width * 0.82,
-              height: 22,
-              decoration: BoxDecoration(
-                color: const Color(0x338C5A33),
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x338C5A33),
-                    blurRadius: 16,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // 顶部伸出的签条
-          const Positioned(top: -8, child: _FortuneSticks()),
-          // 竹筒主体
-          Container(
-            width: width,
-            height: height - 18,
-            decoration: BoxDecoration(
-              // 横向渐变模拟圆柱受光：左暗 → 中亮 → 右暗（自然竹青绿，柔和稳重）
-              gradient: const LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                stops: [0.0, 0.16, 0.5, 0.84, 1.0],
-                colors: [
-                  Color(0xFF5C7A3A),
-                  Color(0xFF8FB05A),
-                  Color(0xFFCFE39A),
-                  Color(0xFF8FB05A),
-                  Color(0xFF5C7A3A),
-                ],
-              ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(28),
-                bottomRight: Radius.circular(28),
-              ),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x3A4A2A12),
-                  blurRadius: 14,
-                  offset: Offset(0, 8),
-                ),
-              ],
-            ),
-            child: Stack(
-              children: [
-                // 暖白金高光带（圆柱反光）
-                Positioned(
-                  left: width * 0.4,
-                  top: 0,
-                  bottom: 0,
-                  width: width * 0.18,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          const Color(0xFFF4E7B8).withOpacity(0.6),
-                          const Color(0xFFF4E7B8).withOpacity(0.12),
-                          const Color(0xFFF4E7B8).withOpacity(0.0),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                // 精致竹节：上暗线 + 下亮线，模拟竹节隆起
-                ...List.generate(3, (i) {
-                  final top = 50.0 + i * 54;
-                  return Positioned(
-                    top: top,
-                    left: 0,
-                    right: 0,
-                    child: Column(
-                      children: [
-                        Container(height: 3, color: const Color(0x55384E27)),
-                        Container(
-                          height: 2,
-                          color: Colors.white.withOpacity(0.28),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-                // 顶部开口（立体椭圆：暗底 + 内圈亮边）
-                Positioned(
-                  top: 5,
-                  left: 14,
-                  right: 14,
-                  height: 22,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF2A3F1C),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.12),
-                        width: 1.5,
-                      ),
-                    ),
-                  ),
-                ),
-                // 底部标字
-                const Positioned(
-                  bottom: 18,
-                  child: Text(
-                    '签筒',
-                    style: TextStyle(
-                      color: Color(0xCCFFFFFF),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 3,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+      child: CustomPaint(
+        painter: _BambooPainter(),
       ),
     );
   }
 }
 
-/// 顶部伸出的签条（红 / 金 / 红），圆头 + 渐变 + 高光。
-class _FortuneSticks extends StatelessWidget {
-  const _FortuneSticks();
+class _BambooPainter extends CustomPainter {
+  const _BambooPainter();
+
+  // 暖木色系（与 AppTheme.wood 协调）
+  static const _woodDark = Color(0xFF6E4A26);
+  static const _woodMid = Color(0xFF9C6B3A);
+  static const _woodLight = Color(0xFFC08A4E);
+  static const _red = Color(0xFFB84A3A);
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 72,
-      height: 62,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          _stick(left: 6, color: const Color(0xFFB84A3A), tilt: -0.16, h: 54),
-          _stick(left: 30, color: const Color(0xFFD9A878), tilt: 0.0, h: 60),
-          _stick(left: 54, color: const Color(0xFFB84A3A), tilt: 0.16, h: 52),
-        ],
-      ),
-    );
-  }
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    // 梯形尺寸：上宽 / 下宽 / 筒高
+    final topW = w; // 172
+    final botW = w * 0.66; // 底部收窄
+    final tubeH = h - 16; // 留出底部投影
+    final topR = (topW / 2) - 4;
+    final botR = (botW / 2) - 4;
 
-  Widget _stick({
-    required double left,
-    required Color color,
-    required double tilt,
-    required double h,
-  }) {
-    return Positioned(
-      left: left,
-      bottom: 0,
-      child: Transform.rotate(
-        angle: tilt,
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          width: 10,
-          height: h,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [color.withOpacity(0.85), color],
-            ),
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x33000000),
-                blurRadius: 3,
-                offset: Offset(0, 1),
-              ),
-            ],
-          ),
-          child: Container(
-            margin: const EdgeInsets.only(top: 2),
-            height: 4,
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.45),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
+    // --- 底部椭圆软投影 ---
+    final shadowRect = Rect.fromCenter(
+      center: Offset(w / 2, h - 6),
+      width: w * 0.8,
+      height: 18,
+    );
+    canvas.save();
+    _paintShadow(canvas, shadowRect);
+    canvas.restore();
+
+    // --- 筒身（梯形路径填充暖木渐变）---
+    final tubePath = Path()
+      ..moveTo(w / 2 - topR, 10)
+      ..quadraticBezierTo(w / 2 - topR - 6, 34, w / 2 - botR, 44)
+      ..lineTo(w / 2 - botR, tubeH - 6)
+      ..quadraticBezierTo(w / 2 - botR, tubeH, w / 2, tubeH)
+      ..quadraticBezierTo(w / 2 + botR, tubeH, w / 2 + botR, tubeH - 6)
+      ..lineTo(w / 2 + botR, 44)
+      ..quadraticBezierTo(w / 2 + topR + 6, 34, w / 2 + topR, 10)
+      ..close();
+
+    // 主体横向渐变（圆柱受光：左暗 - 中亮 - 右暗）
+    final bodyGrad = LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: const [_woodDark, _woodMid, _woodLight, _woodMid, _woodDark],
+      stops: const [0.0, 0.18, 0.5, 0.82, 1.0],
+    );
+    canvas.save();
+    canvas.clipPath(tubePath);
+    canvas.drawRect(
+        Offset.zero & size, Paint()..shader = bodyGrad.createShader(Offset.zero & size));
+
+    // 高光带
+    final hiPaint = Paint()
+      ..shader = const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [Color(0x66FFFFFF), Color(0x00FFFFFF)],
+      ).createShader(Rect.fromLTWH(w / 2, 0, w * 0.16, h));
+    canvas.drawRect(
+        Rect.fromLTWH(w / 2 - w * 0.02, 8, w * 0.16, tubeH - 12), hiPaint);
+
+    // 侧边暗部（圆柱纵深阴影叠加深绿木质暗影）
+    final sideShade = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.centerLeft,
+        end: Alignment.center,
+        colors: const [Color(0x60000000), Color(0x00000000)],
+      ).createShader(Rect.fromLTWH(0, 0, w * 0.2, h));
+    canvas.drawRect(Rect.fromLTWH(0, 8, w * 0.2, tubeH - 12), sideShade);
+    canvas.restore();
+
+    // 竹节（上凸暗线 + 下亮线），随梯形横向轻微收窄
+    final nJoints = 3;
+    for (var i = 0; i < nJoints; i++) {
+      final t = 0.28 + i * 0.22; // 相对筒高位置
+      final y = 40 + (tubeH - 8 - 40) * t;
+      final r = botR + (topR - botR) * (1 - t); // 该高度处的半宽
+      final left = w / 2 - r;
+      final right = w / 2 + r;
+      canvas
+        ..drawLine(Offset(left, y), Offset(right, y),
+            Paint()..color = const Color(0x404A2A12)..strokeWidth = 3)
+        ..drawLine(Offset(left, y + 3.5), Offset(right, y + 3.5),
+            Paint()..color = const Color(0x33FFFFFF)..strokeWidth = 2);
+    }
+
+    // 顶部开口（内凹椭圆 + 深色内壁）
+    final mouthRect = Rect.fromLTWH(topR * 0.22, 6, topW - topR * 0.44, 30);
+    final mouth = RRect.fromRectAndRadius(
+        Rect.fromLTWH(mouthRect.left - 6, mouthRect.top - 2,
+            mouthRect.width + 12, mouthRect.height + 6),
+        const Radius.circular(18));
+    canvas
+      ..drawRRect(mouth, Paint()..color = const Color(0xFF2A241C))
+      ..drawRRect(
+          mouth.inflate(2),
+          Paint()
+            ..color = const Color(0x22FFFFFF)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.5);
+    // 开口内壁渐暗
+    canvas.drawRRect(
+        mouth.deflate(2),
+        Paint()
+          ..shader = const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+            Color(0xFF1D1812),
+            Color(0xFF2A241C),
+          ]).createShader(mouth.outerRect));
+
+    // --- 筒内伸出的签条（红 / 金 / 红，长短高低交错）---
+    _paintSticks(canvas, mouthRect);
+
+    // 底部标字
+    final tp = TextPainter(
+      text: const TextSpan(
+        text: '签筒',
+        style: TextStyle(
+          color: Color(0xB3FFFFFF),
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 4,
         ),
       ),
-    );
+      textDirection: TextDirection.ltr,
+    )..layout();
+    tp.paint(canvas, Offset((w - tp.width) / 2, tubeH - 24));
   }
+
+  void _paintShadow(Canvas canvas, Rect rect) {
+    final paint = Paint()
+      ..shader = RadialGradient(
+        colors: const [Color(0x408C5A33), Color(0x008C5A33)],
+      ).createShader(rect);
+    canvas.drawOval(rect, paint);
+  }
+
+  void _paintSticks(Canvas canvas, Rect mouth) {
+    // 签条从筒口探出：红 - 金 - 红等距错落 + 随机倾斜 + 高低不一。
+    const stickW = 11.0;
+    final baseY = mouth.center.dy + mouth.height * 0.18;
+    // 每根签：横向偏移、露出高度、倾斜角、颜色
+    final specs = <(double, double, double, Color)>[
+      (0.22, 60, -0.14, _red),
+      (0.38, 70, -0.05, const Color(0xFFD9A878)),
+      (0.50, 78, 0.02, _red),
+      (0.62, 70, 0.10, const Color(0xFFE2C067)),
+      (0.76, 60, 0.16, const Color(0xFFB84A3A)),
+    ];
+    for (final (fx, len, tilt, color) in specs) {
+      final cx = mouth.left + mouth.width * fx;
+      final painter = Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [color.withOpacity(0.9), color],
+        ).createShader(Rect.fromCenter(
+            center: Offset(cx, baseY - len / 2), width: stickW, height: len));
+      canvas.save();
+      canvas.translate(cx, baseY);
+      canvas.rotate(tilt);
+      final r = RRect.fromRectAndRadius(
+        Rect.fromCenter(center: Offset.zero, width: stickW, height: len),
+        const Radius.circular(5.5),
+      );
+      canvas
+        ..drawRRect(r, painter)
+        // 签条圆头高光
+        ..drawRRect(
+            RRect.fromRectAndRadius(
+                Rect.fromLTWH(-stickW / 2 + 2, -len / 2 + 2, stickW - 4, 4),
+                const Radius.circular(2)),
+            Paint()..color = Colors.white.withOpacity(0.4));
+      canvas.restore();
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _BambooPainter oldDelegate) => false;
 }

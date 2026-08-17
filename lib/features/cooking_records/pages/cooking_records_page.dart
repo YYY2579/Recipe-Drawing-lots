@@ -58,29 +58,35 @@ class _CookingRecordsPageState extends ConsumerState<CookingRecordsPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _openSheet(context, ref, null),
+        onPressed: () => openCookingRecordSheet(context, ref, null),
         icon: const Icon(Icons.add),
         label: const Text('记一笔'),
       ),
     );
   }
+}
 
-  void _openSheet(BuildContext context, WidgetRef ref,
-      CookingRecordData? existing) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (_) => CookingRecordSheet(record: existing),
-    ).then((_) {
-      ref.invalidate(cookingRecordsProvider);
-      ref.invalidate(cookingTemplatesProvider);
-      ref.invalidate(cookingTotalProvider);
-      ref.invalidate(cookingStatsProvider);
-    });
-  }
+/// 打开记账弹窗（新增 / 编辑），关闭后刷新相关 Provider。
+/// 必须用顶层函数而非页面 State 方法：bottom sheet 在 Overlay 中弹出，
+/// 通过 `findAncestorStateOfType` 从 sheet 内找页面 State 永远为 null，
+/// 导致编辑按钮「点了没反应」。
+void openCookingRecordSheet(
+    BuildContext context, WidgetRef ref, CookingRecordData? existing) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (_) => CookingRecordSheet(record: existing),
+  ).then((_) {
+    ref.invalidate(cookingRecordsProvider);
+    ref.invalidate(cookingTemplatesProvider);
+    ref.invalidate(cookingTotalProvider);
+    ref.invalidate(cookingStatsProvider);
+    // 统计页实际 watch 的是自定义区间 family，必须一并失效，否则记账后统计不刷新。
+    ref.invalidate(cookingRangeStatsProvider);
+  });
 }
 
 /// 单日记录卡片（时间线一项）。
@@ -132,11 +138,8 @@ class _DayCard extends ConsumerWidget {
                 ),
                 IconButton(
                   icon: const Icon(Icons.edit_outlined, size: 20),
-                  onPressed: () {
-                    final sheet = context
-                        .findAncestorStateOfType<_CookingRecordsPageState>();
-                    sheet?._openSheet(context, ref, record);
-                  },
+                  onPressed: () =>
+                      openCookingRecordSheet(context, ref, record),
                 ),
                 IconButton(
                   icon: const Icon(Icons.delete_outline, size: 20),
@@ -147,6 +150,7 @@ class _DayCard extends ConsumerWidget {
                     ref.invalidate(cookingRecordsProvider);
                     ref.invalidate(cookingTotalProvider);
                     ref.invalidate(cookingStatsProvider);
+                    ref.invalidate(cookingRangeStatsProvider);
                   },
                 ),
               ],
@@ -250,29 +254,29 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
 
   Future<void> _loadExistingItems() async {
     final db = ref.read(databaseProvider);
-    final start = DateTime(_date.year, _date.month, _date.day);
-    final rec = (await (db.select(db.cookingRecords)
-              ..where((t) => t.recordDate.equals(start)))
-            .getSingleOrNull());
-    if (!mounted) return;
-    if (rec != null) {
-      final items = await db.itemsForRecord(rec.id);
-      if (!mounted) return;
-      setState(() {
-        if (items.isEmpty) {
-          _rows.add(_DishRow());
-        } else {
-          for (final it in items) {
-            _rows.add(_DishRow()
-              ..name.text = it.dishName
-              ..price.text = it.price?.toStringAsFixed(2) ?? ''
-              ..category = it.category ?? '其他');
-          }
-        }
-      });
+    // 编辑：按记录 id 精确加载（原实现按「当天 00:00」精确匹配，
+    // 与带时分秒的存储时间永远对不上，导致编辑时条目全部丢失）。
+    // 新增 / 换日期：按天查找（按天合并模型下当天可能已有条目，预填供追加）。
+    final List<CookingRecordItemData> items;
+    if (widget.record != null) {
+      items = await db.itemsForRecord(widget.record!.id);
     } else {
-      setState(() => _rows.add(_DishRow()));
+      final rec = await db.recordOnDay(_date);
+      items = rec == null ? const [] : await db.itemsForRecord(rec.id);
     }
+    if (!mounted) return;
+    setState(() {
+      if (items.isEmpty) {
+        _rows.add(_DishRow());
+      } else {
+        for (final it in items) {
+          _rows.add(_DishRow()
+            ..name.text = it.dishName
+            ..price.text = it.price?.toStringAsFixed(2) ?? ''
+            ..category = it.category ?? '其他');
+        }
+      }
+    });
   }
 
   @override
@@ -284,14 +288,33 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
 
   Future<void> _save() async {
     final db = ref.read(databaseProvider);
-    final int rid;
+    int rid;
     if (widget.record != null) {
-      // 编辑：更新该条记录的条目（先清空再重插）。
+      // 编辑：先处理日期变更，再清空条目重插。
       rid = widget.record!.id;
-      await db.deleteItemsForRecord(rid);
+      final newDay = DateTime(_date.year, _date.month, _date.day);
+      final oldDay = DateTime(widget.record!.recordDate.year,
+          widget.record!.recordDate.month, widget.record!.recordDate.day);
+      if (newDay != oldDay) {
+        final target = await db.recordOnDay(newDay);
+        if (target != null && target.id != rid) {
+          // 目标日期已有记录：条目并入目标记录，删除原记录（按天合并）。
+          await db.deleteItemsForRecord(rid);
+          await db.deleteCookingRecord(rid);
+          rid = target.id;
+        } else {
+          // 目标日期空闲：直接更新主记录日期。
+          await db.updateCookingRecordDate(rid, newDay);
+          await db.deleteItemsForRecord(rid);
+        }
+      } else {
+        await db.deleteItemsForRecord(rid);
+      }
     } else {
-      // 新增：插入一条独立新记录（带时分秒），不按天复用。
-      rid = await db.insertCookingRecord(_date);
+      // 新增：按天合并（当天已有主记录则复用，追加明细）。
+      // 原实现每次插入带时分秒的独立记录，导致同一天出现多张卡片、
+      // 编辑时按日期精确匹配失效、统计边界混乱。
+      rid = await db.upsertCookingRecord(_date);
     }
     for (final r in _rows) {
       final name = r.name.text.trim();
@@ -492,6 +515,9 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
               (m['price'] == null ? '' : (m['price'] as num).toString()));
       }
       if (_rows.isEmpty) _rows.add(_DishRow());
+      // 套用模板后再保存不应默认再存一份相同模板。
+      _saveAsTemplate = false;
+      _templateName.clear();
     });
   }
 }

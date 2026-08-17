@@ -11,28 +11,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:drift/drift.dart' hide Column;
 
 import 'package:what_to_eat/app/theme.dart';
+import 'package:what_to_eat/core/constants/app_constants.dart';
 import 'package:what_to_eat/core/database/app_database.dart';
 import 'package:what_to_eat/providers.dart';
 import 'package:what_to_eat/shared/widgets/app_scaffold.dart';
-
-const List<String> _kCategories = [
-  '川菜',
-  '家常菜',
-  '下饭菜',
-  '快手菜',
-  '早餐',
-  '汤羹',
-  '甜品',
-  '素菜',
-  '肉菜',
-];
-
-const List<String> _kFlavors = [
-  '五香', '卤香', '咖喱', '咸甜', '咸辣', '咸香', '咸鲜', '嫩', '孜然',
-  '干香', '微辣', '清润', '清淡', '清爽', '清甜', '清鲜', '烟香', '甜',
-  '甜咸', '糊辣', '糊辣荔枝口', '红油', '荔枝口', '葱香', '蒜香', '蜜汁',
-  '酥脆', '酱香', '酸甜', '酸甜微辣', '酸辣', '香辣', '鲜', '鲜香', '麻辣',
-];
 
 /// 新建 / 编辑菜谱入口。id 为 'new' 表示新建，否则为菜谱 id。
 class RecipeEditPage extends ConsumerWidget {
@@ -243,6 +225,7 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
       ));
       await _writeComponents(db, newId);
       ref.invalidate(allRecipesProvider);
+      ref.invalidate(poolRecipesProvider);
     } else {
       final id = widget.initial!.id;
       final updated = widget.initial!.copyWith(
@@ -258,11 +241,12 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
         flavorsJson: Value(jsonEncode(flavors)),
         updatedAt: Value(now),
       );
-      await db.deleteRecipeComponents(id);
+      await db.deleteRecipeDetailComponents(id);
       await db.updateRecipe(updated);
       await _writeComponents(db, id);
       ref.invalidate(recipeByIdProvider(id));
       ref.invalidate(allRecipesProvider);
+      ref.invalidate(poolRecipesProvider);
     }
     if (mounted) context.pop();
   }
@@ -464,7 +448,7 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
             const SizedBox(height: 16),
             _sectionTitle('分类'),
             _chips(
-              {..._kCategories, ..._selectedCategories}.toList(),
+              {...kRecipeCategories, ..._selectedCategories}.toList(),
               _selectedCategories,
               (c) => setState(() {
                 if (_selectedCategories.contains(c)) {
@@ -477,7 +461,7 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
             const SizedBox(height: 16),
             _sectionTitle('口味'),
             _chips(
-              {..._kFlavors, ..._selectedFlavors}.toList(),
+              {...kRecipeFlavors, ..._selectedFlavors}.toList(),
               _selectedFlavors,
               (c) => setState(() {
                 if (_selectedFlavors.contains(c)) {

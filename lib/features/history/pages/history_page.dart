@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:what_to_eat/app/theme.dart';
 import 'package:what_to_eat/core/database/app_database.dart';
+import 'package:what_to_eat/core/draw/draw_engine.dart';
 import 'package:what_to_eat/providers.dart';
 import 'package:what_to_eat/shared/widgets/app_scaffold.dart';
 
@@ -45,12 +46,22 @@ class HistoryPage extends ConsumerWidget {
             itemCount: hist.length,
             itemBuilder: (ctx, i) {
               final h = hist[i];
-              final name = recipeName[h.recipeId] ?? '未知菜谱';
+              final isSpecial = isSpecialOption(h.recipeId);
+              final name = isSpecial
+                  ? (h.recipeId == kOptEatOutId
+                      ? kOptEatOutName
+                      : kOptTakeoutName)
+                  : (recipeName[h.recipeId] ?? '未知菜谱');
               final pn = poolName[h.poolId] ?? '';
               return Card(
                 child: ListTile(
-                  onTap: () => context.push('/recipe/${h.recipeId}'),
-                  leading: const Icon(Icons.history, color: AppTheme.wood),
+                  onTap: isSpecial
+                      ? null
+                      : () => context.push('/recipe/${h.recipeId}'),
+                  leading: Icon(
+                    isSpecial ? Icons.celebration_outlined : Icons.history,
+                    color: AppTheme.wood,
+                  ),
                   title: Text(name),
                   subtitle: Text(
                     [
