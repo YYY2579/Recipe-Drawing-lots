@@ -2,13 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:what_to_eat/app/theme.dart';
 import 'package:what_to_eat/core/database/app_database.dart';
+import 'package:what_to_eat/features/cooking_records/categories.dart';
 import 'package:what_to_eat/providers.dart';
 import 'package:what_to_eat/shared/widgets/app_scaffold.dart';
 
-/// 做饭记录：按天时间线 + 周期消费统计 + 模板。
+/// 记账：按天时间线 + 右下角记一笔。统计入口移至右上角「收支统计」。
 class CookingRecordsPage extends ConsumerStatefulWidget {
   const CookingRecordsPage({super.key});
 
@@ -17,81 +19,23 @@ class CookingRecordsPage extends ConsumerStatefulWidget {
 }
 
 class _CookingRecordsPageState extends ConsumerState<CookingRecordsPage> {
-  int _period = 1; // 0 本周 / 1 本月 / 2 全部
-
-  (DateTime, DateTime) _range() {
-    final now = DateTime.now();
-    if (_period == 0) {
-      // 本周一 00:00 ~ 现在
-      final monday = now.subtract(Duration(days: now.weekday - 1));
-      final from = DateTime(monday.year, monday.month, monday.day);
-      return (from, now);
-    } else if (_period == 1) {
-      final from = DateTime(now.year, now.month, 1);
-      return (from, now);
-    }
-    return (DateTime(2000), now);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final range = _range();
-    final statsAsync = ref.watch(cookingStatsProvider(range));
     final recordsAsync = ref.watch(cookingRecordsProvider);
+    final totalAsync = ref.watch(cookingTotalProvider);
 
     return AppScaffold(
-      title: '做饭记录',
+      title: '记账',
+      actions: [
+        IconButton(
+          tooltip: '收支统计',
+          icon: const Icon(Icons.bar_chart_outlined),
+          onPressed: () => context.push('/cooking-stats'),
+        ),
+      ],
       body: Column(
         children: [
-          // 周期消费统计
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                SegmentedButton<int>(
-                  segments: const [
-                    ButtonSegment(value: 0, label: Text('本周')),
-                    ButtonSegment(value: 1, label: Text('本月')),
-                    ButtonSegment(value: 2, label: Text('全部')),
-                  ],
-                  selected: {_period},
-                  onSelectionChanged: (s) => setState(() => _period = s.first),
-                  style: SegmentedButton.styleFrom(
-                    selectedForegroundColor: Colors.white,
-                    selectedBackgroundColor: AppTheme.wood,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: AppTheme.wood,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    children: [
-                      const Text('该周期累计消费',
-                          style: TextStyle(color: Colors.white70)),
-                      const SizedBox(height: 4),
-                      statsAsync.when(
-                        data: (v) => Text('¥${v.toStringAsFixed(2)}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 32,
-                                fontWeight: FontWeight.w800)),
-                        loading: () => const CircularProgressIndicator(
-                            color: Colors.white),
-                        error: (_, __) => const Text('—',
-                            style: TextStyle(color: Colors.white)),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // 时间线
+          _TotalBanner(totalAsync: totalAsync),
           Expanded(
             child: recordsAsync.when(
               loading: () =>
@@ -103,11 +47,10 @@ class _CookingRecordsPageState extends ConsumerState<CookingRecordsPage> {
                       child: Text('还没有记录，点右下角 + 记一笔吧'));
                 }
                 return ListView.separated(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 80),
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
                   itemCount: records.length,
                   separatorBuilder: (_, __) => const SizedBox(height: 12),
-                  itemBuilder: (ctx, i) =>
-                      _DayCard(record: records[i]),
+                  itemBuilder: (ctx, i) => _DayCard(record: records[i]),
                 );
               },
             ),
@@ -133,8 +76,9 @@ class _CookingRecordsPageState extends ConsumerState<CookingRecordsPage> {
       builder: (_) => CookingRecordSheet(record: existing),
     ).then((_) {
       ref.invalidate(cookingRecordsProvider);
-      ref.invalidate(cookingStatsProvider(_range()));
       ref.invalidate(cookingTemplatesProvider);
+      ref.invalidate(cookingTotalProvider);
+      ref.invalidate(cookingStatsProvider);
     });
   }
 }
@@ -167,7 +111,8 @@ class _DayCard extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                    child: Text('${record.recordDate.month}/${record.recordDate.day}',
+                    child: Text(
+                        '${record.recordDate.month}/${record.recordDate.day}',
                         style: const TextStyle(
                             fontWeight: FontWeight.w700, fontSize: 13)),
                   ),
@@ -180,15 +125,16 @@ class _DayCard extends ConsumerWidget {
                       Text(_weekday(record.recordDate),
                           style: const TextStyle(fontWeight: FontWeight.w600)),
                       Text('共 ¥${total.toStringAsFixed(2)}',
-                          style: const TextStyle(color: AppTheme.gray, fontSize: 12)),
+                          style: const TextStyle(
+                              color: AppTheme.gray, fontSize: 12)),
                     ],
                   ),
                 ),
                 IconButton(
                   icon: const Icon(Icons.edit_outlined, size: 20),
                   onPressed: () {
-                    final sheet = context.findAncestorStateOfType<
-                        _CookingRecordsPageState>();
+                    final sheet = context
+                        .findAncestorStateOfType<_CookingRecordsPageState>();
                     sheet?._openSheet(context, ref, record);
                   },
                 ),
@@ -199,6 +145,8 @@ class _DayCard extends ConsumerWidget {
                         .read(databaseProvider)
                         .deleteCookingRecord(record.id);
                     ref.invalidate(cookingRecordsProvider);
+                    ref.invalidate(cookingTotalProvider);
+                    ref.invalidate(cookingStatsProvider);
                   },
                 ),
               ],
@@ -235,7 +183,39 @@ class _DayCard extends ConsumerWidget {
 
   String _weekday(DateTime d) {
     const names = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-    return '${d.year}年${d.month}月${d.day}日 · ${names[(d.weekday - 1) % 7]}';
+    final w = names[(d.weekday - 1) % 7];
+    final hm =
+        '${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}';
+    return '${d.year}年${d.month}月${d.day}日 $hm · $w';
+  }
+}
+
+/// 单条支出行的分类下拉选择（与全局 kExpenseCategories 一致）。
+class _CategoryPicker extends StatelessWidget {
+  final String value;
+  final ValueChanged<String> onChanged;
+  const _CategoryPicker({required this.value, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: categoryColor(value).withOpacity(0.12),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: categoryColor(value).withOpacity(0.5)),
+      ),
+      child: DropdownButton<String>(
+        value: value,
+        underline: const SizedBox(),
+        isDense: true,
+        icon: const Icon(Icons.arrow_drop_down, size: 18),
+        items: kExpenseCategories
+            .map((c) => DropdownMenuItem(value: c, child: Text(c)))
+            .toList(),
+        onChanged: (v) => v == null ? null : onChanged(v),
+      ),
+    );
   }
 }
 
@@ -245,7 +225,8 @@ class CookingRecordSheet extends ConsumerStatefulWidget {
   const CookingRecordSheet({super.key, this.record});
 
   @override
-  ConsumerState<CookingRecordSheet> createState() => _CookingRecordSheetState();
+  ConsumerState<CookingRecordSheet> createState() =>
+      _CookingRecordSheetState();
 }
 
 class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
@@ -259,26 +240,38 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
     super.initState();
     _date = widget.record?.recordDate ?? DateTime.now();
     if (widget.record != null) {
-      // 编辑：异步载入已有条目
-      ref
-          .read(databaseProvider)
-          .itemsForRecord(widget.record!.id)
-          .then((items) {
-        if (!mounted) return;
-        setState(() {
-          if (items.isEmpty) {
-            _rows.add(_DishRow());
-          } else {
-            for (final it in items) {
-              _rows.add(_DishRow()
-                ..name.text = it.dishName
-                ..price.text = it.price?.toStringAsFixed(2) ?? '');
-            }
+      // 编辑已有记录：载入其条目。
+      _loadExistingItems();
+    } else {
+      // 新增：每次都是一条独立新记录，不预填、不叠加当天已有数据。
+      _rows.add(_DishRow());
+    }
+  }
+
+  Future<void> _loadExistingItems() async {
+    final db = ref.read(databaseProvider);
+    final start = DateTime(_date.year, _date.month, _date.day);
+    final rec = (await (db.select(db.cookingRecords)
+              ..where((t) => t.recordDate.equals(start)))
+            .getSingleOrNull());
+    if (!mounted) return;
+    if (rec != null) {
+      final items = await db.itemsForRecord(rec.id);
+      if (!mounted) return;
+      setState(() {
+        if (items.isEmpty) {
+          _rows.add(_DishRow());
+        } else {
+          for (final it in items) {
+            _rows.add(_DishRow()
+              ..name.text = it.dishName
+              ..price.text = it.price?.toStringAsFixed(2) ?? ''
+              ..category = it.category ?? '其他');
           }
-        });
+        }
       });
     } else {
-      _rows.add(_DishRow());
+      setState(() => _rows.add(_DishRow()));
     }
   }
 
@@ -291,13 +284,21 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
 
   Future<void> _save() async {
     final db = ref.read(databaseProvider);
-    final rid = await db.upsertCookingRecord(_date);
-    await db.deleteItemsForRecord(rid);
+    final int rid;
+    if (widget.record != null) {
+      // 编辑：更新该条记录的条目（先清空再重插）。
+      rid = widget.record!.id;
+      await db.deleteItemsForRecord(rid);
+    } else {
+      // 新增：插入一条独立新记录（带时分秒），不按天复用。
+      rid = await db.insertCookingRecord(_date);
+    }
     for (final r in _rows) {
       final name = r.name.text.trim();
       if (name.isEmpty) continue;
       final price = double.tryParse(r.price.text.trim());
-      await db.insertCookingItem(rid, name, price: price);
+      await db.insertCookingItem(rid, name,
+          price: price, category: r.category);
     }
     if (_saveAsTemplate && _templateName.text.trim().isNotEmpty) {
       final items = _rows
@@ -350,10 +351,15 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
                   firstDate: DateTime(2000),
                   lastDate: DateTime.now(),
                 );
-                if (picked != null) setState(() => _date = picked);
+                if (picked != null) {
+                  setState(() => _date = picked);
+                  _rows.clear();
+                  _loadExistingItems();
+                }
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 decoration: BoxDecoration(
                   color: AppTheme.cream,
                   borderRadius: BorderRadius.circular(12),
@@ -362,14 +368,12 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
                   children: [
                     const Icon(Icons.calendar_today, size: 18),
                     const SizedBox(width: 8),
-                    Text(
-                        '${_date.year}年${_date.month}月${_date.day}日'),
+                    Text('${_date.year}年${_date.month}月${_date.day}日'),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 12),
-            // 从模板载入
             templatesAsync.when(
               data: (templates) => templates.isNotEmpty
                   ? Row(
@@ -395,7 +399,7 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
               error: (_, __) => const SizedBox(),
             ),
             const SizedBox(height: 12),
-            const Text('做了哪些菜',
+            const Text('支出明细',
                 style: TextStyle(fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             ..._rows.asMap().entries.map((e) {
@@ -403,38 +407,48 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
               final r = e.value;
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: TextField(
-                        controller: r.name,
-                        decoration: const InputDecoration(
-                            hintText: '菜名', isDense: true),
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: TextField(
+                            controller: r.name,
+                            decoration: const InputDecoration(
+                                hintText: '项目', isDense: true),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          flex: 2,
+                          child: TextField(
+                            controller: r.price,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true),
+                            decoration: const InputDecoration(
+                                hintText: '金额', isDense: true),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.remove_circle_outline,
+                              color: AppTheme.red, size: 20),
+                          onPressed: () {
+                            if (_rows.length > 1) {
+                              setState(() {
+                                r.dispose();
+                                _rows.removeAt(i);
+                              });
+                            }
+                          },
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      flex: 2,
-                      child: TextField(
-                        controller: r.price,
-                        keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true),
-                        decoration: const InputDecoration(
-                            hintText: '买菜价', isDense: true),
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.remove_circle_outline,
-                          color: AppTheme.red, size: 20),
-                      onPressed: () {
-                        if (_rows.length > 1) {
-                          setState(() {
-                            r.dispose();
-                            _rows.removeAt(i);
-                          });
-                        }
-                      },
+                    const SizedBox(height: 6),
+                    _CategoryPicker(
+                      value: r.category,
+                      onChanged: (v) => setState(() => r.category = v),
                     ),
                   ],
                 ),
@@ -443,7 +457,7 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
             TextButton.icon(
               onPressed: () => setState(() => _rows.add(_DishRow())),
               icon: const Icon(Icons.add),
-              label: const Text('再加一道菜'),
+              label: const Text('再加一笔'),
             ),
             const SizedBox(height: 8),
             CheckboxListTile(
@@ -482,9 +496,51 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
   }
 }
 
+/// 顶部累计支出横幅（随新增/删除实时刷新）。
+class _TotalBanner extends StatelessWidget {
+  final AsyncValue<double> totalAsync;
+  const _TotalBanner({required this.totalAsync});
+
+  @override
+  Widget build(BuildContext context) {
+    final total = totalAsync.when(
+      data: (v) => '¥${v.toStringAsFixed(2)}',
+      loading: () => '…',
+      error: (_, __) => '¥0.00',
+    );
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFB98252), Color(0xFF8A5A2B)],
+        ),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.account_balance_wallet_outlined,
+              color: Colors.white, size: 20),
+          const SizedBox(width: 8),
+          const Text('累计支出',
+              style: TextStyle(color: Colors.white, fontSize: 14)),
+          const Spacer(),
+          Text(total,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700)),
+        ],
+      ),
+    );
+  }
+}
+
 class _DishRow {
   final name = TextEditingController();
   final price = TextEditingController();
+  String category = '其他';
   void dispose() {
     name.dispose();
     price.dispose();

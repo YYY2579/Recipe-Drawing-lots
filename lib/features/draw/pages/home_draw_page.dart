@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:what_to_eat/app/theme.dart';
 import 'package:what_to_eat/core/database/app_database.dart';
 import 'package:what_to_eat/core/sound/sound_service.dart';
 import 'package:what_to_eat/features/draw/widgets/bamboo_tube.dart';
@@ -17,49 +18,63 @@ class HomeDrawPage extends ConsumerStatefulWidget {
 
 class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  int _targetIndex = -1;
-  int _seed = 0;
+  final _bambooKey = GlobalKey<BambooTube3DState>();
+  bool _busy = false;
+
+  // 入场动画：标题与竹筒淡入上浮，提升页面质感。
+  late final AnimationController _appear;
+  late final Animation<double> _fade;
+  late final Animation<Offset> _slide;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    _appear = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2800),
+      duration: const Duration(milliseconds: 650),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+    _fade = CurvedAnimation(parent: _appear, curve: Curves.easeOut);
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.06),
+      end: Offset.zero,
+    ).animate(_fade);
+    _appear.forward();
   }
 
   Future<void> _onDraw(List<RecipeData> recipes) async {
-    if (_controller.isAnimating) return;
+    if (_busy) return;
     final settings = ref.read(settingsProvider).valueOrNull;
     final soundEnabled = settings?.soundEnabled ?? true;
     final anim = settings?.animationEnabled ?? true;
 
-    // 竹筒摇晃音效（抽签开始即触发，与摇晃动画配套）。
+    // 竹筒摇晃音效 + 3D 摇晃动画（抽签开始即触发）。
     ref.read(soundServiceProvider)
       ..setEnabled(soundEnabled)
       ..playShake();
 
-    final result = await ref.read(drawNotifierProvider.notifier).draw();
-    if (!mounted) return;
-
+    setState(() => _busy = true);
     if (anim) {
-      final idx = recipes.indexWhere((r) => r.id == result.recipeId);
-      setState(() {
-        _targetIndex = idx;
-        _seed = result.animationSeed;
-      });
-      await _controller.forward(from: 0);
-      if (!mounted) return;
+      // 模型未就绪时摇晃可能抛错，单步容错，绝不阻断抽签。
+      try {
+        await _bambooKey.currentState?.shake();
+      } catch (_) {
+        // 忽略摇晃动画异常，继续抽签流程。
+      }
+    }
+    if (!mounted) return;
+    try {
+      await ref.read(drawNotifierProvider.notifier).draw();
+    } finally {
+      // 无论抽签是否成功，都必须复位 _busy，确保可再次抽签。
+      if (mounted) setState(() => _busy = false);
     }
     if (mounted) context.push('/result');
+  }
+
+  @override
+  void dispose() {
+    _appear.dispose();
+    super.dispose();
   }
 
   @override
@@ -70,8 +85,9 @@ class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
     final poolsAsync = ref.watch(allPoolsProvider);
 
     return recipesAsync.when(
-      loading: () =>
-          const AppScaffold(title: '今天吃什么？', body: Center(child: CircularProgressIndicator())),
+      loading: () => const AppScaffold(
+          title: '今天吃什么？',
+          body: Center(child: CircularProgressIndicator())),
       error: (e, _) => AppScaffold(
         title: '今天吃什么？',
         body: Center(child: Text('加载失败：$e')),
@@ -119,17 +135,34 @@ class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               children: [
-                const SizedBox(height: 16),
-                Text(
-                  '今天吃什么？',
-                  style: Theme.of(context).textTheme.displaySmall,
+                const SizedBox(height: 20),
+                // 标题区（入场淡入）
+                FadeTransition(
+                  opacity: _fade,
+                  child: Column(
+                    children: [
+                      const Text(
+                        '今天吃什么？',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: AppTheme.darkBrown,
+                          height: 1.2,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      const Text(
+                        '让签筒替你做决定',
+                        style: TextStyle(
+                          color: AppTheme.gray,
+                          fontSize: 13.5,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 4),
-                const Text(
-                  '让签筒替你做决定',
-                  style: TextStyle(color: AppThemeGray),
-                ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 18),
                 _PoolSelector(
                   poolName: poolName,
                   count: count,
@@ -137,68 +170,82 @@ class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
                   onSelected: (id) =>
                       ref.read(currentPoolProvider.notifier).state = id,
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
+                // 竹筒区（入场淡入 + 上浮）
                 Expanded(
-                  child: GestureDetector(
-                    onTap: drawState.isDrawing
-                        ? null
-                        : () => _onDraw(recipes),
-                    behavior: HitTestBehavior.opaque,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        CustomPaint(
-                          size: Size(
-                              MediaQuery.of(context).size.width - 48, 320),
-                          painter: BambooTubePainter(
-                            progress: _controller,
-                            recipes: recipes,
-                            targetIndex: _targetIndex,
-                            seed: _seed,
-                          ),
-                        ),
-                        if (!drawState.isDrawing)
-                          Positioned(
-                            bottom: 0,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF7F3EA),
-                                borderRadius: BorderRadius.circular(12),
+                  child: FadeTransition(
+                    opacity: _fade,
+                    child: SlideTransition(
+                      position: _slide,
+                      child: GestureDetector(
+                        onTap: _busy ? null : () => _onDraw(recipes),
+                        behavior: HitTestBehavior.opaque,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            BambooTube3D(key: _bambooKey),
+                            if (!_busy)
+                              Positioned(
+                                bottom: 0,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 14, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    color: AppTheme.cream,
+                                    borderRadius: BorderRadius.circular(14),
+                                    border: Border.all(
+                                      color:
+                                          AppTheme.wood.withOpacity(0.25),
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    '轻触竹筒，揭晓今日菜单',
+                                    style: TextStyle(
+                                      color: AppTheme.gray,
+                                      fontSize: 12.5,
+                                    ),
+                                  ),
+                                ),
                               ),
-                              child: const Text('👆 点击竹筒抽签',
-                                  style: TextStyle(
-                                      color: AppThemeGray, fontSize: 12)),
-                            ),
-                          ),
-                      ],
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-                if (drawState.result != null)
+                if (drawState.previousResult != null)
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Text(
-                      '最近抽过：${drawState.result!.recipeName}',
-                      style: const TextStyle(color: AppThemeGray),
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.history_rounded,
+                            size: 15, color: AppTheme.gray),
+                        const SizedBox(width: 6),
+                        Text(
+                          '最近抽过：${drawState.previousResult!.recipeName}',
+                          style: const TextStyle(
+                            color: AppTheme.gray,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 else
                   const Padding(
-                    padding: EdgeInsets.only(bottom: 8),
+                    padding: EdgeInsets.only(bottom: 10),
                     child: Text('点下方按钮，开始抽签',
-                        style: TextStyle(color: AppThemeGray)),
+                        style: TextStyle(color: AppTheme.gray, fontSize: 13)),
                   ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 24),
                   child: SizedBox(
                     width: double.infinity,
-                    child: FilledButton(
-                      onPressed: drawState.isDrawing
-                          ? null
-                          : () => _onDraw(recipes),
-                      child: const Text('抽一签'),
+                    child: ElevatedButton.icon(
+                      onPressed: _busy ? null : () => _onDraw(recipes),
+                      icon: const Icon(Icons.auto_awesome_rounded, size: 18),
+                      label: const Text('抽一签'),
                     ),
                   ),
                 ),
@@ -211,7 +258,7 @@ class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
   }
 }
 
-/// 顶部签池选择器（点击切换当前签池）。
+/// 顶部签池选择器（点击切换当前签池），带图标与微阴影。
 class _PoolSelector extends StatelessWidget {
   final String poolName;
   final int count;
@@ -233,31 +280,40 @@ class _PoolSelector extends StatelessWidget {
           .map((p) => PopupMenuItem(value: p.id, child: Text(p.name)))
           .toList(),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
         decoration: BoxDecoration(
-          color: const Color(0xFFF7F3EA),
+          color: AppTheme.cream,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFB98252).withOpacity(0.3)),
+          border: Border.all(color: AppTheme.wood.withOpacity(0.3)),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x14000000),
+              blurRadius: 8,
+              offset: Offset(0, 3),
+            ),
+          ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('当前签池', style: TextStyle(color: AppThemeGray)),
+            const Icon(Icons.restaurant_menu_rounded,
+                size: 16, color: AppTheme.gray),
+            const SizedBox(width: 8),
+            const Text('当前签池',
+                style: TextStyle(color: AppTheme.gray, fontSize: 13)),
             const SizedBox(width: 8),
             Text(poolName,
                 style: const TextStyle(
-                    fontWeight: FontWeight.w600, color: Color(0xFF292621))),
+                    fontWeight: FontWeight.w600, color: AppTheme.darkBrown)),
             const SizedBox(width: 8),
-            Text('$count 道菜 · 点击切换',
-                style: const TextStyle(color: AppThemeGray, fontSize: 12)),
+            Text('$count 道菜',
+                style: const TextStyle(color: AppTheme.gray, fontSize: 12)),
             const SizedBox(width: 4),
-            const Icon(Icons.expand_more, color: AppThemeGray, size: 18),
+            const Icon(Icons.expand_more_rounded,
+                color: AppTheme.gray, size: 18),
           ],
         ),
       ),
     );
   }
 }
-
-/// 局部灰色常量（避免重复 import 主题）。
-const Color AppThemeGray = Color(0xFF817A70);

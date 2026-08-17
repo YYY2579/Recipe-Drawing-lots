@@ -29,9 +29,8 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
-  @override
   Future<void> onUpgrade(Migrator m, int from, int to) async {
     if (from < 2) {
       // 新增幸运星开关列
@@ -41,6 +40,11 @@ class AppDatabase extends _$AppDatabase {
       await m.createTable(cookingRecords);
       await m.createTable(cookingRecordItems);
       await m.createTable(cookingTemplates);
+    }
+    if (from < 3) {
+      // 记账条目新增「分类」列（可空，历史数据按「其他」统计）。
+      await m.alterTable(TableMigration(cookingRecordItems,
+          newColumns: [cookingRecordItems.category]));
     }
   }
 
@@ -216,13 +220,24 @@ class AppDatabase extends _$AppDatabase {
     ));
   }
 
+  /// 插入一条全新的独立记录（带时分秒，不按天复用）。用于「记一笔」每次独立成条，
+  /// 而非在当天已有记录上累加。
+  Future<int> insertCookingRecord(DateTime when, {String? note}) {
+    return into(cookingRecords).insert(CookingRecordsCompanion(
+      recordDate: Value(when),
+      createdAt: Value(DateTime.now()),
+      note: Value(note),
+    ));
+  }
+
   Future<void> insertCookingItem(int recordId, String dishName,
-      {double? price, String? note}) {
+      {double? price, String? note, String? category}) {
     return into(cookingRecordItems).insert(CookingRecordItemsCompanion(
       recordId: Value(recordId),
       dishName: Value(dishName),
       price: Value(price),
       note: Value(note),
+      category: Value(category),
     ));
   }
 
@@ -265,6 +280,31 @@ class AppDatabase extends _$AppDatabase {
         .get();
     return items.fold<double>(
         0, (sum, it) => sum + (it.price ?? 0));
+  }
+
+  /// 全部记录的累计支出（用于主页顶部「累计支出」汇总）。
+  Future<double> totalSpentAll() async {
+    final items = await (select(cookingRecordItems)).get();
+    return items.fold<double>(0, (sum, it) => sum + (it.price ?? 0));
+  }
+
+  /// 区间内的「记录条目 + 所属记录日期」，供自定义时间段统计使用。
+  /// 返回 (条目, 记录日期) 列表；记录日期用于按日聚合趋势。
+  Future<List<(CookingRecordItemData, DateTime)>> itemsWithDateBetween(
+      DateTime from, DateTime to) async {
+    final records = await (select(cookingRecords)
+          ..where((t) => t.recordDate.isBetweenValues(from, to)))
+        .get();
+    if (records.isEmpty) return const [];
+    final ids = records.map((r) => r.id).toList();
+    final items = await (select(cookingRecordItems)
+          ..where((t) => t.recordId.isIn(ids)))
+        .get();
+    final dateOf = {for (final r in records) r.id: r.recordDate};
+    return items
+        .where((it) => dateOf.containsKey(it.recordId))
+        .map((it) => (it, dateOf[it.recordId]!))
+        .toList();
   }
 
   // ---------- 做饭记录模板 ----------

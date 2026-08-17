@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:what_to_eat/app/theme.dart';
-
-/// 统一页面外壳：AppBar + 底部 4 Tab 导航。
-/// 仅「抽签」Tab 在本轮完整可用，其余为占位。
+/// 统一页面外壳：AppBar + 正文 + 浮窗按钮。
+/// 底部 5 Tab 导航由 [MainShell] 统一提供（IndexedStack 保留各 Tab 状态）。
 class AppScaffold extends StatelessWidget {
   final String title;
   final Widget body;
@@ -23,26 +21,8 @@ class AppScaffold extends StatelessWidget {
     this.floatingActionButton,
   });
 
-  static const List<String> _routes = [
-    '/',
-    '/pools',
-    '/recipes',
-    '/profile',
-    '/cooking-records'
-  ];
-
-  int _indexFor(String loc) {
-    if (loc.startsWith('/pools')) return 1;
-    if (loc.startsWith('/recipes')) return 2;
-    if (loc.startsWith('/profile')) return 3;
-    if (loc.startsWith('/cooking-records')) return 4;
-    return 0;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final loc = GoRouterState.of(context).matchedLocation;
-    final idx = _indexFor(loc);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -58,13 +38,31 @@ class AppScaffold extends StatelessWidget {
       ),
       body: body,
       floatingActionButton: floatingActionButton,
+    );
+  }
+}
+
+/// 主页 5 Tab 的持久化外壳：用 StatefulShellRoute 的 IndexedStack 保留各 Tab
+/// 状态，切换 Tab 时不再重建页面（避免「像打开新页面一样」的别扭体验）。
+class MainShell extends StatelessWidget {
+  final StatefulNavigationShell navigationShell;
+  const MainShell({super.key, required this.navigationShell});
+
+  void _onTap(int index) {
+    // 再次点击当前 Tab 时回到该 Tab 的初始页。
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: idx,
-        onTap: (i) {
-          final target = _routes[i];
-          if (target == loc) return;
-          context.go(target);
-        },
+        currentIndex: navigationShell.currentIndex,
+        onTap: _onTap,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.spa_outlined), label: '抽签'),
@@ -75,7 +73,7 @@ class AppScaffold extends StatelessWidget {
           BottomNavigationBarItem(
               icon: Icon(Icons.person_outline), label: '我的'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.restaurant_menu_outlined), label: '记录'),
+              icon: Icon(Icons.restaurant_menu_outlined), label: '记账'),
         ],
       ),
     );

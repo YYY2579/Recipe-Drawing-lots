@@ -115,6 +115,9 @@ class CookingRecordItems extends Table {
   TextColumn get dishName => text()();
   RealColumn get price => real().nullable()(); // 买菜价格（元）
   TextColumn get note => text().nullable()();
+  // 消费分类（食材采购/外卖/堂食/饮品/其他），用于「分类消费明细」统计。
+  // 可空，历史数据（无分类）统一按「其他」统计。
+  TextColumn get category => text().nullable()();
 }
 
 /// 做饭记录模板（预留，可一键套用一组菜品）。

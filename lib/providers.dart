@@ -16,6 +16,8 @@ import 'features/history/pages/history_page.dart';
 import 'features/settings/pages/settings_page.dart';
 import 'features/settings/pages/my_profile_page.dart';
 import 'features/cooking_records/pages/cooking_records_page.dart';
+import 'features/cooking_records/pages/cooking_stats_page.dart';
+import 'shared/widgets/app_scaffold.dart';
 
 /// 数据库单例。
 final databaseProvider = Provider<AppDatabase>((ref) {
@@ -131,12 +133,77 @@ final cookingTemplatesProvider =
   return db.allCookingTemplates();
 });
 
-/// 周期消费统计（按时间区间统计总花费）。
+/// 收支统计周期。
+enum StatsPeriod { today, week, month, all }
+
+/// 周期消费统计：按所选周期统计总支出。
+/// 用枚举做 family key（稳定、可比较），避免用 (DateTime,DateTime) 元组
+/// 每次重建导致统计长期转圈的问题。
 final cookingStatsProvider =
-    FutureProvider.family<double, (DateTime, DateTime)>(
-        (ref, range) async {
+    FutureProvider.family<double, StatsPeriod>((ref, period) async {
   final db = ref.watch(databaseProvider);
-  return db.totalSpentBetween(range.$1, range.$2);
+  final now = DateTime.now();
+  late final DateTime from;
+  switch (period) {
+    case StatsPeriod.today:
+      from = DateTime(now.year, now.month, now.day);
+    case StatsPeriod.week:
+      final monday = now.subtract(Duration(days: now.weekday - 1));
+      from = DateTime(monday.year, monday.month, monday.day);
+    case StatsPeriod.month:
+      from = DateTime(now.year, now.month, 1);
+    case StatsPeriod.all:
+      from = DateTime(2000);
+  }
+  return db.totalSpentBetween(from, now);
+});
+
+/// 全部记账累计支出（主页顶部「累计支出」汇总，随新增/删除实时刷新）。
+final cookingTotalProvider = FutureProvider<double>((ref) async {
+  final db = ref.watch(databaseProvider);
+  return db.totalSpentAll();
+});
+
+/// 自定义时间段统计结果：总消费额 + 分类消费明细 + 按日消费趋势。
+class CookingRangeStats {
+  final double total;
+  final Map<String, double> byCategory; // 分类 -> 金额
+  final List<(DateTime, double)> trend; // 按日（升序）：日期 -> 当日金额
+  const CookingRangeStats({
+    required this.total,
+    required this.byCategory,
+    required this.trend,
+  });
+}
+
+/// 自定义时间段统计：给定起止日期，汇总区间内的消费数据。
+/// 同时支撑统计页的「自定义」模式与预设周期（把周期换算成 (from,to) 传入即可）。
+final cookingRangeStatsProvider =
+    FutureProvider.family<CookingRangeStats, (DateTime, DateTime)>(
+        (ref, range) async {
+  final (from, to) = range;
+  final db = ref.watch(databaseProvider);
+  final rows = await db.itemsWithDateBetween(from, to);
+
+  double total = 0;
+  final byCategory = <String, double>{};
+  final byDay = <DateTime, double>{};
+  for (final (item, date) in rows) {
+    final price = item.price ?? 0;
+    total += price;
+    final cat = item.category ?? '其他';
+    byCategory[cat] = (byCategory[cat] ?? 0) + price;
+    final day = DateTime(date.year, date.month, date.day);
+    byDay[day] = (byDay[day] ?? 0) + price;
+  }
+
+  final trend = byDay.entries
+      .map((e) => (e.key, e.value))
+      .toList()
+    ..sort((a, b) => a.$1.compareTo(b.$1));
+
+  return CookingRangeStats(
+      total: total, byCategory: byCategory, trend: trend);
 });
 
 /// 单个签池（详情页）。
@@ -146,12 +213,41 @@ final poolByIdProvider =
   return db.poolById(id);
 });
 
-/// 全局路由。
+/// 全局路由：主页 5 个 Tab 用 StatefulShellRoute.indexedStack 托管，
+/// 切换 Tab 时保留各自状态（页面内切换，不再重建页面）。其余为全屏子页。
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/',
     routes: [
-      GoRoute(path: '/', builder: (c, s) => const HomeDrawPage()),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            MainShell(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(routes: [
+            GoRoute(path: '/', builder: (c, s) => const HomeDrawPage()),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(path: '/pools', builder: (c, s) => const PoolsPage()),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(path: '/recipes', builder: (c, s) => const RecipesPage()),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+                path: '/profile', builder: (c, s) => const MyProfilePage()),
+            GoRoute(
+                path: '/settings', builder: (c, s) => const SettingsPage()),
+            GoRoute(
+                path: '/history', builder: (c, s) => const HistoryPage()),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+                path: '/cooking-records',
+                builder: (c, s) => const CookingRecordsPage()),
+          ]),
+        ],
+      ),
+      // 全屏子页（脱离 Tab 外壳，独立显示 + 返回）。
       GoRoute(path: '/result', builder: (c, s) => const ResultPage()),
       GoRoute(
         path: '/recipe/:id',
@@ -162,16 +258,8 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (c, s) => RecipeEditPage(id: s.pathParameters['id']!),
       ),
       GoRoute(
-        path: '/recipes',
-        builder: (c, s) => const RecipesPage(),
-      ),
-      GoRoute(
         path: '/recipes/new',
         builder: (c, s) => const RecipeEditPage(id: 'new'),
-      ),
-      GoRoute(
-        path: '/pools',
-        builder: (c, s) => const PoolsPage(),
       ),
       GoRoute(
         path: '/pools/:id',
@@ -182,20 +270,8 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (c, s) => const FavoritesPage(),
       ),
       GoRoute(
-        path: '/history',
-        builder: (c, s) => const HistoryPage(),
-      ),
-      GoRoute(
-        path: '/settings',
-        builder: (c, s) => const SettingsPage(),
-      ),
-      GoRoute(
-        path: '/profile',
-        builder: (c, s) => const MyProfilePage(),
-      ),
-      GoRoute(
-        path: '/cooking-records',
-        builder: (c, s) => const CookingRecordsPage(),
+        path: '/cooking-stats',
+        builder: (c, s) => const CookingStatsPage(),
       ),
     ],
   );

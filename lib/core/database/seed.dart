@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:drift/drift.dart';
 
 import 'app_database.dart';
-import 'tables.dart';
 
 /// 首次启动时把 `assets/seed/*.json` 写入本地库（仅当 Recipes 为空）。
 /// [recipes] / [pools] 为已解析的 JSON（List<dynamic>）。

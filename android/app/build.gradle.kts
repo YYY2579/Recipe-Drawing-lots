@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.what_to_eat"
+    namespace = "com.cook.whattoeat"
     // 运行期 flutter.compileSdkVersion 解析为 34（Flutter 3.47.0 内置 gradle 插件 jar 的硬编码值），
     // 但传递依赖 flutter_plugin_android_lifecycle 要求 >=36，故显式写 36 以通过 AAR 元数据检查。
     compileSdk = 36
@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.what_to_eat"
+        applicationId = "com.cook.whattoeat"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

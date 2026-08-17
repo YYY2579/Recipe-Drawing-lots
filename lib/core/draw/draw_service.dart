@@ -6,12 +6,19 @@ import 'package:what_to_eat/core/draw/draw_engine.dart';
 /// 当前抽签状态。
 class DrawState {
   final DrawResult? result;
+  final DrawResult? previousResult;
   final bool isDrawing;
 
-  const DrawState({this.result, this.isDrawing = false});
+  const DrawState({this.result, this.previousResult, this.isDrawing = false});
 
-  DrawState copyWith({DrawResult? result, bool? isDrawing}) => DrawState(
+  DrawState copyWith({
+    DrawResult? result,
+    DrawResult? previousResult,
+    bool? isDrawing,
+  }) =>
+      DrawState(
         result: result ?? this.result,
+        previousResult: previousResult ?? this.previousResult,
         isDrawing: isDrawing ?? this.isDrawing,
       );
 }
@@ -30,6 +37,7 @@ class DrawNotifier extends StateNotifier<DrawState> {
   }) : super(const DrawState());
 
   Future<DrawResult> draw() async {
+    final prev = state.result;
     state = const DrawState(isDrawing: true);
 
     // 每次抽签实时读取设置，使「幸运星」与「最近不重复」立即生效。
@@ -55,7 +63,9 @@ class DrawNotifier extends StateNotifier<DrawState> {
     );
 
     await db.insertHistory(poolId, result.recipeId);
-    state = DrawState(result: result);
+    // previousResult 保留「上一次」的结果，供主页「最近抽过」展示，
+    // 避免把本次刚抽到的直接显示出来。
+    state = DrawState(result: result, previousResult: prev);
     return result;
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:what_to_eat/core/database/app_database.dart';
 import 'package:what_to_eat/providers.dart';
 import 'package:what_to_eat/shared/widgets/app_scaffold.dart';
 import 'package:what_to_eat/shared/widgets/recipe_grid.dart';

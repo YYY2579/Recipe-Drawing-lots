@@ -1,226 +1,289 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-import 'package:what_to_eat/core/database/app_database.dart';
-
-/// 木质签筒 + 竹签的自定义绘制（对应文档 §14 / §15）。
+/// 纯 Flutter 绘制的伪 3D 竹筒（签筒），与全局「轻国风·暖木」主题协调。
 ///
-/// 动画时间轴（progress: 0→1，约 2800ms）：
-/// 0~0.107  签筒开始轻晃
-/// 0.107~0.357 签子上下运动
-/// 0.357~0.536 签筒剧烈晃动
-/// 0.536~0.643 目标签升起
-/// 0.643~0.821 签子逐渐抽出
-/// 0.821~0.893 短暂停顿
-/// 0.893~1.0 签子弹出
+/// 早期版本用 flutter_3d_controller（WebView + WebGL 渲染 49MB GLB），在鸿蒙 / 部分设备
+/// WebGL 不可用，竹筒永远渲染不出。现改为纯 Flutter 绘制：横向渐变模拟圆柱光照 +
+/// 暖白金高光 + 精致竹节 + 顶部签条 + 暖棕落地投影，配合 Transform 摇晃动画，
+/// 任何设备稳定显示，且不依赖重型 WebView。
 ///
-/// 必须先由 DrawEngine 定出结果（targetIndex），动画只负责表现，不决定结果（§16）。
-class BambooTubePainter extends CustomPainter {
-  final Animation<double> progress;
-  final List<RecipeData> recipes;
-  final int targetIndex;
-  final int seed;
+/// 对外保留 [BambooTube3D] / [BambooTube3DState] / [shake()] 接口，主页无需改动。
+class BambooTube3D extends StatefulWidget {
+  const BambooTube3D({super.key});
 
-  BambooTubePainter({
-    required this.progress,
-    required this.recipes,
-    required this.targetIndex,
-    required this.seed,
-  }) : super(repaint: progress);
+  @override
+  State<BambooTube3D> createState() => BambooTube3DState();
+}
 
-  static const Color _woodLight = Color(0xFFD9A878);
-  static const Color _wood = Color(0xFFB98252);
-  static const Color _woodDark = Color(0xFF8C5A33);
-  static const Color _stick = Color(0xFFE9D9A8);
-  static const Color _stickShade = Color(0xFFCBB57A);
-  static const Color _red = Color(0xFFB84A3A);
-  static const Color _knob = Color(0xFF8C5A33);
+class BambooTube3DState extends State<BambooTube3D>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _tilt;
+  bool _shaking = false;
 
-  List<double> _phases() {
-    final rnd = Random(seed);
-    return List.generate(recipes.length, (_) => rnd.nextDouble() * 2 * pi);
+  @override
+  void initState() {
+    super.initState();
+    // 延长到约 1.6s，让「摇一摇」有完整的体感，与抽签音效节奏协调。
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1600),
+    );
+    // 左右交替、多段逐步衰减的摇晃，最后回正，模拟真实摇签。
+    _tilt = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: 0.16), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: 0.16, end: -0.16), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: -0.16, end: 0.12), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: 0.12, end: -0.1), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: -0.1, end: 0.06), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: 0.06, end: -0.04), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: -0.04, end: 0.0), weight: 1),
+    ]).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut));
+  }
+
+  /// 摇晃动画：绕底部中心左右摆动，模拟竹筒摇签。
+  /// 返回 Future，动画完整播放结束后 resolve，供主页在「摇完」之后再展示结果，
+  /// 从而让摇签音效与动画节奏协调、用户获得完整的摇签体验。
+  Future<void> shake() async {
+    if (_shaking) return;
+    if (!mounted) return;
+    setState(() => _shaking = true);
+    try {
+      await _ctrl.forward(from: 0);
+    } finally {
+      if (mounted) setState(() => _shaking = false);
+      if (_ctrl.value != 0) _ctrl.reset();
+    }
   }
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final t = progress.value;
-    final phases = _phases();
-
-    final tubeW = size.width * 0.6;
-    final tubeH = size.height * 0.40;
-    final cx = size.width / 2;
-    final topY = size.height * 0.42; // 筒口 y
-
-    // —— 整体晃动 ——
-    double shake = 0;
-    if (t >= 0.107 && t < 0.357) {
-      shake = sin(t * 60) * 2 * ((t - 0.107) / 0.25);
-    } else if (t >= 0.357 && t < 0.536) {
-      shake = sin(t * 90) * 6;
-    } else if (t >= 0.536) {
-      shake = sin(t * 40) * 1.5 * (1 - (t - 0.536) / 0.464).clamp(0, 1);
-    }
-
-    // —— 签子上下抖动幅度 ——
-    final jiggleAmp =
-        (t >= 0.107 && t < 0.536) ? (t < 0.357 ? 4.0 : 10.0) : 0;
-
-    // —— 目标签 升起 / 抽出 / 弹出 ——
-    double targetRise = 0;
-    double targetTilt = 0;
-    if (targetIndex >= 0 && t >= 0.536) {
-      final p = ((t - 0.536) / (1 - 0.536)).clamp(0, 1);
-      if (p < 0.2) {
-        targetRise = p / 0.2 * (tubeH * 0.25);
-      } else if (p < 0.55) {
-        targetRise = tubeH * 0.25 + (p - 0.2) / 0.35 * (tubeH * 0.5);
-      } else if (p < 0.7) {
-        targetRise = tubeH * 0.75;
-      } else {
-        targetRise = tubeH * 0.75 + (p - 0.7) / 0.3 * (tubeH * 0.3);
-      }
-      targetTilt = sin(p * pi) * 0.12;
-    }
-
-    // —— 绘制签子（在筒体之前，筒体前壁会遮住筒内部分）——
-    final n = recipes.length;
-    if (n > 0) {
-      final stickW = max(2.0, tubeW / (n + 6));
-      final spacing = tubeW / (n + 1);
-      final showLabels = n <= 18;
-      for (int i = 0; i < n; i++) {
-        final baseX = cx - tubeW / 2 + spacing * (i + 1) + shake;
-        final top = topY - size.height * 0.10 - (i % 4) * 4.0;
-        final h = size.height * 0.12 + (i % 5) * 3.0;
-
-        final isTarget = i == targetIndex;
-        double tx = baseX;
-        double ty = top;
-        double th = h;
-        double tilt = 0;
-
-        if (isTarget && targetRise > 0) {
-          ty = top - targetRise;
-          tx = baseX + sin(targetTilt) * (size.height * 0.05);
-          tilt = targetTilt;
-        } else if (jiggleAmp > 0) {
-          final dy = sin(t * 50 + phases[i]) * jiggleAmp;
-          ty = top - dy;
-          th = h + dy;
-        }
-
-        String? label;
-        if (showLabels && !isTarget) {
-          label = recipes[i].name.length > 2
-              ? recipes[i].name.substring(0, 2)
-              : recipes[i].name;
-        } else if (isTarget) {
-          label = '中';
-        }
-
-        _drawStick(canvas, tx, ty, th, stickW, isTarget, label);
-      }
-    }
-
-    // —— 绘制筒体（前壁遮住签子下部，形成「插在筒里」的观感）——
-    _drawTube(canvas, cx + shake, topY, tubeW, tubeH);
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
   }
 
-  void _drawStick(Canvas canvas, double x, double top, double h, double w,
-      bool isTarget, String? label) {
-    canvas.save();
-    canvas.translate(x, top);
-
-    final body = RRect.fromRectAndRadius(
-      Rect.fromLTWH(-w / 2, 0, w, h),
-      Radius.circular(w / 2),
-    );
-    canvas.drawRRect(
-      body,
-      Paint()..color = isTarget ? const Color(0xFFF0E2B8) : _stick,
-    );
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(-w / 2, 0, w * 0.35, h),
-        Radius.circular(w / 2),
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _tilt,
+      builder: (context, child) => Transform.rotate(
+        angle: _tilt.value,
+        alignment: Alignment.bottomCenter,
+        child: child,
       ),
-      Paint()..color = _stickShade.withOpacity(0.4),
+      child: const _BambooBody(),
     );
-    // 签顶木扣
-    canvas.drawCircle(
-      Offset(0, 0),
-      w * 0.78,
-      Paint()..color = isTarget ? _red : _knob,
-    );
+  }
+}
 
-    if (label != null) {
-      final tp = TextPainter(
-        text: TextSpan(
-          text: label,
-          style: TextStyle(
-            color: isTarget ? _red : const Color(0x6692796B),
-            fontSize: 9,
-            fontWeight: FontWeight.bold,
+/// 竹筒本体：自然竹色（橄榄青绿），与主题 wood / red 协调，稳重不刺眼。
+class _BambooBody extends StatelessWidget {
+  const _BambooBody();
+
+  static const double width = 150;
+  static const double height = 236;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // 暖棕落地投影（模糊，让竹筒「落地」）
+          Positioned(
+            bottom: 0,
+            child: Container(
+              width: width * 0.82,
+              height: 22,
+              decoration: BoxDecoration(
+                color: const Color(0x338C5A33),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x338C5A33),
+                    blurRadius: 16,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // 顶部伸出的签条
+          const Positioned(top: -8, child: _FortuneSticks()),
+          // 竹筒主体
+          Container(
+            width: width,
+            height: height - 18,
+            decoration: BoxDecoration(
+              // 横向渐变模拟圆柱受光：左暗 → 中亮 → 右暗（自然竹青绿，柔和稳重）
+              gradient: const LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                stops: [0.0, 0.16, 0.5, 0.84, 1.0],
+                colors: [
+                  Color(0xFF5C7A3A),
+                  Color(0xFF8FB05A),
+                  Color(0xFFCFE39A),
+                  Color(0xFF8FB05A),
+                  Color(0xFF5C7A3A),
+                ],
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+                bottomLeft: Radius.circular(28),
+                bottomRight: Radius.circular(28),
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x3A4A2A12),
+                  blurRadius: 14,
+                  offset: Offset(0, 8),
+                ),
+              ],
+            ),
+            child: Stack(
+              children: [
+                // 暖白金高光带（圆柱反光）
+                Positioned(
+                  left: width * 0.4,
+                  top: 0,
+                  bottom: 0,
+                  width: width * 0.18,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          const Color(0xFFF4E7B8).withOpacity(0.6),
+                          const Color(0xFFF4E7B8).withOpacity(0.12),
+                          const Color(0xFFF4E7B8).withOpacity(0.0),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                // 精致竹节：上暗线 + 下亮线，模拟竹节隆起
+                ...List.generate(3, (i) {
+                  final top = 50.0 + i * 54;
+                  return Positioned(
+                    top: top,
+                    left: 0,
+                    right: 0,
+                    child: Column(
+                      children: [
+                        Container(height: 3, color: const Color(0x55384E27)),
+                        Container(
+                          height: 2,
+                          color: Colors.white.withOpacity(0.28),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+                // 顶部开口（立体椭圆：暗底 + 内圈亮边）
+                Positioned(
+                  top: 5,
+                  left: 14,
+                  right: 14,
+                  height: 22,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2A3F1C),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.12),
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+                ),
+                // 底部标字
+                const Positioned(
+                  bottom: 18,
+                  child: Text(
+                    '签筒',
+                    style: TextStyle(
+                      color: Color(0xCCFFFFFF),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 3,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 顶部伸出的签条（红 / 金 / 红），圆头 + 渐变 + 高光。
+class _FortuneSticks extends StatelessWidget {
+  const _FortuneSticks();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 72,
+      height: 62,
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          _stick(left: 6, color: const Color(0xFFB84A3A), tilt: -0.16, h: 54),
+          _stick(left: 30, color: const Color(0xFFD9A878), tilt: 0.0, h: 60),
+          _stick(left: 54, color: const Color(0xFFB84A3A), tilt: 0.16, h: 52),
+        ],
+      ),
+    );
+  }
+
+  Widget _stick({
+    required double left,
+    required Color color,
+    required double tilt,
+    required double h,
+  }) {
+    return Positioned(
+      left: left,
+      bottom: 0,
+      child: Transform.rotate(
+        angle: tilt,
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          width: 10,
+          height: h,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [color.withOpacity(0.85), color],
+            ),
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x33000000),
+                blurRadius: 3,
+                offset: Offset(0, 1),
+              ),
+            ],
+          ),
+          child: Container(
+            margin: const EdgeInsets.only(top: 2),
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.45),
+              borderRadius: BorderRadius.circular(2),
+            ),
           ),
         ),
-        textDirection: TextDirection.ltr,
-        textAlign: TextAlign.center,
-      )..layout(maxWidth: 44);
-      tp.paint(canvas, Offset(-tp.width / 2, -tp.height - w));
-    }
-    canvas.restore();
-  }
-
-  void _drawTube(
-      Canvas canvas, double cx, double topY, double w, double h) {
-    final body = RRect.fromRectAndRadius(
-      Rect.fromLTWH(cx - w / 2, topY, w, h),
-      Radius.circular(w * 0.10),
-    );
-    canvas.drawRRect(
-      body,
-      Paint()
-        ..shader = const LinearGradient(
-          colors: [_woodLight, _wood, _woodDark],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ).createShader(body.outerRect),
-    );
-
-    // 木纹
-    final grain = Paint()
-      ..color = _woodDark.withOpacity(0.18)
-      ..strokeWidth = 1.0;
-    for (int i = 1; i < 7; i++) {
-      final gx = cx - w / 2 + w * i / 7;
-      canvas.drawLine(Offset(gx, topY + 8), Offset(gx, topY + h - 8), grain);
-    }
-
-    // 筒口内壁（深色椭圆）
-    canvas.drawOval(
-      Rect.fromLTWH(cx - w / 2, topY - 8, w, 18),
-      Paint()..color = const Color(0xFF6B4423),
-    );
-    // 筒口边缘
-    canvas.drawOval(
-      Rect.fromLTWH(cx - w / 2, topY - 8, w, 18),
-      Paint()
-        ..color = _woodLight
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 3,
-    );
-    // 底部阴影
-    canvas.drawOval(
-      Rect.fromLTWH(cx - w / 2 + 6, topY + h - 4, w - 12, 14),
-      Paint()..color = const Color(0x22000000),
+      ),
     );
   }
-
-  @override
-  bool shouldRepaint(covariant BambooTubePainter old) =>
-      old.progress != progress ||
-      old.targetIndex != targetIndex ||
-      old.seed != seed ||
-      old.recipes != recipes;
 }

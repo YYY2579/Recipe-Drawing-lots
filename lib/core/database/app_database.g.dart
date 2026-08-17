@@ -3050,8 +3050,15 @@ class $CookingRecordItemsTable extends CookingRecordItems
   late final GeneratedColumn<String> note = GeneratedColumn<String>(
       'note', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _categoryMeta =
+      const VerificationMeta('category');
   @override
-  List<GeneratedColumn> get $columns => [id, recordId, dishName, price, note];
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, recordId, dishName, price, note, category];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -3086,6 +3093,10 @@ class $CookingRecordItemsTable extends CookingRecordItems
       context.handle(
           _noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
     }
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    }
     return context;
   }
 
@@ -3105,6 +3116,8 @@ class $CookingRecordItemsTable extends CookingRecordItems
           .read(DriftSqlType.double, data['${effectivePrefix}price']),
       note: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}note']),
+      category: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}category']),
     );
   }
 
@@ -3121,12 +3134,14 @@ class CookingRecordItemData extends DataClass
   final String dishName;
   final double? price;
   final String? note;
+  final String? category;
   const CookingRecordItemData(
       {required this.id,
       required this.recordId,
       required this.dishName,
       this.price,
-      this.note});
+      this.note,
+      this.category});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3139,6 +3154,9 @@ class CookingRecordItemData extends DataClass
     if (!nullToAbsent || note != null) {
       map['note'] = Variable<String>(note);
     }
+    if (!nullToAbsent || category != null) {
+      map['category'] = Variable<String>(category);
+    }
     return map;
   }
 
@@ -3150,6 +3168,9 @@ class CookingRecordItemData extends DataClass
       price:
           price == null && nullToAbsent ? const Value.absent() : Value(price),
       note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+      category: category == null && nullToAbsent
+          ? const Value.absent()
+          : Value(category),
     );
   }
 
@@ -3162,6 +3183,7 @@ class CookingRecordItemData extends DataClass
       dishName: serializer.fromJson<String>(json['dishName']),
       price: serializer.fromJson<double?>(json['price']),
       note: serializer.fromJson<String?>(json['note']),
+      category: serializer.fromJson<String?>(json['category']),
     );
   }
   @override
@@ -3173,6 +3195,7 @@ class CookingRecordItemData extends DataClass
       'dishName': serializer.toJson<String>(dishName),
       'price': serializer.toJson<double?>(price),
       'note': serializer.toJson<String?>(note),
+      'category': serializer.toJson<String?>(category),
     };
   }
 
@@ -3181,13 +3204,15 @@ class CookingRecordItemData extends DataClass
           int? recordId,
           String? dishName,
           Value<double?> price = const Value.absent(),
-          Value<String?> note = const Value.absent()}) =>
+          Value<String?> note = const Value.absent(),
+          Value<String?> category = const Value.absent()}) =>
       CookingRecordItemData(
         id: id ?? this.id,
         recordId: recordId ?? this.recordId,
         dishName: dishName ?? this.dishName,
         price: price.present ? price.value : this.price,
         note: note.present ? note.value : this.note,
+        category: category.present ? category.value : this.category,
       );
   CookingRecordItemData copyWithCompanion(CookingRecordItemsCompanion data) {
     return CookingRecordItemData(
@@ -3196,6 +3221,7 @@ class CookingRecordItemData extends DataClass
       dishName: data.dishName.present ? data.dishName.value : this.dishName,
       price: data.price.present ? data.price.value : this.price,
       note: data.note.present ? data.note.value : this.note,
+      category: data.category.present ? data.category.value : this.category,
     );
   }
 
@@ -3206,13 +3232,15 @@ class CookingRecordItemData extends DataClass
           ..write('recordId: $recordId, ')
           ..write('dishName: $dishName, ')
           ..write('price: $price, ')
-          ..write('note: $note')
+          ..write('note: $note, ')
+          ..write('category: $category')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, recordId, dishName, price, note);
+  int get hashCode =>
+      Object.hash(id, recordId, dishName, price, note, category);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3221,7 +3249,8 @@ class CookingRecordItemData extends DataClass
           other.recordId == this.recordId &&
           other.dishName == this.dishName &&
           other.price == this.price &&
-          other.note == this.note);
+          other.note == this.note &&
+          other.category == this.category);
 }
 
 class CookingRecordItemsCompanion
@@ -3231,12 +3260,14 @@ class CookingRecordItemsCompanion
   final Value<String> dishName;
   final Value<double?> price;
   final Value<String?> note;
+  final Value<String?> category;
   const CookingRecordItemsCompanion({
     this.id = const Value.absent(),
     this.recordId = const Value.absent(),
     this.dishName = const Value.absent(),
     this.price = const Value.absent(),
     this.note = const Value.absent(),
+    this.category = const Value.absent(),
   });
   CookingRecordItemsCompanion.insert({
     this.id = const Value.absent(),
@@ -3244,6 +3275,7 @@ class CookingRecordItemsCompanion
     required String dishName,
     this.price = const Value.absent(),
     this.note = const Value.absent(),
+    this.category = const Value.absent(),
   })  : recordId = Value(recordId),
         dishName = Value(dishName);
   static Insertable<CookingRecordItemData> custom({
@@ -3252,6 +3284,7 @@ class CookingRecordItemsCompanion
     Expression<String>? dishName,
     Expression<double>? price,
     Expression<String>? note,
+    Expression<String>? category,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -3259,6 +3292,7 @@ class CookingRecordItemsCompanion
       if (dishName != null) 'dish_name': dishName,
       if (price != null) 'price': price,
       if (note != null) 'note': note,
+      if (category != null) 'category': category,
     });
   }
 
@@ -3267,13 +3301,15 @@ class CookingRecordItemsCompanion
       Value<int>? recordId,
       Value<String>? dishName,
       Value<double?>? price,
-      Value<String?>? note}) {
+      Value<String?>? note,
+      Value<String?>? category}) {
     return CookingRecordItemsCompanion(
       id: id ?? this.id,
       recordId: recordId ?? this.recordId,
       dishName: dishName ?? this.dishName,
       price: price ?? this.price,
       note: note ?? this.note,
+      category: category ?? this.category,
     );
   }
 
@@ -3295,6 +3331,9 @@ class CookingRecordItemsCompanion
     if (note.present) {
       map['note'] = Variable<String>(note.value);
     }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
     return map;
   }
 
@@ -3305,7 +3344,8 @@ class CookingRecordItemsCompanion
           ..write('recordId: $recordId, ')
           ..write('dishName: $dishName, ')
           ..write('price: $price, ')
-          ..write('note: $note')
+          ..write('note: $note, ')
+          ..write('category: $category')
           ..write(')'))
         .toString();
   }
@@ -5163,6 +5203,7 @@ typedef $$CookingRecordItemsTableCreateCompanionBuilder
   required String dishName,
   Value<double?> price,
   Value<String?> note,
+  Value<String?> category,
 });
 typedef $$CookingRecordItemsTableUpdateCompanionBuilder
     = CookingRecordItemsCompanion Function({
@@ -5171,6 +5212,7 @@ typedef $$CookingRecordItemsTableUpdateCompanionBuilder
   Value<String> dishName,
   Value<double?> price,
   Value<String?> note,
+  Value<String?> category,
 });
 
 class $$CookingRecordItemsTableFilterComposer
@@ -5196,6 +5238,9 @@ class $$CookingRecordItemsTableFilterComposer
 
   ColumnFilters<String> get note => $composableBuilder(
       column: $table.note, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnFilters(column));
 }
 
 class $$CookingRecordItemsTableOrderingComposer
@@ -5221,6 +5266,9 @@ class $$CookingRecordItemsTableOrderingComposer
 
   ColumnOrderings<String> get note => $composableBuilder(
       column: $table.note, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnOrderings(column));
 }
 
 class $$CookingRecordItemsTableAnnotationComposer
@@ -5246,6 +5294,9 @@ class $$CookingRecordItemsTableAnnotationComposer
 
   GeneratedColumn<String> get note =>
       $composableBuilder(column: $table.note, builder: (column) => column);
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
 }
 
 class $$CookingRecordItemsTableTableManager extends RootTableManager<
@@ -5282,6 +5333,7 @@ class $$CookingRecordItemsTableTableManager extends RootTableManager<
             Value<String> dishName = const Value.absent(),
             Value<double?> price = const Value.absent(),
             Value<String?> note = const Value.absent(),
+            Value<String?> category = const Value.absent(),
           }) =>
               CookingRecordItemsCompanion(
             id: id,
@@ -5289,6 +5341,7 @@ class $$CookingRecordItemsTableTableManager extends RootTableManager<
             dishName: dishName,
             price: price,
             note: note,
+            category: category,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -5296,6 +5349,7 @@ class $$CookingRecordItemsTableTableManager extends RootTableManager<
             required String dishName,
             Value<double?> price = const Value.absent(),
             Value<String?> note = const Value.absent(),
+            Value<String?> category = const Value.absent(),
           }) =>
               CookingRecordItemsCompanion.insert(
             id: id,
@@ -5303,6 +5357,7 @@ class $$CookingRecordItemsTableTableManager extends RootTableManager<
             dishName: dishName,
             price: price,
             note: note,
+            category: category,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
