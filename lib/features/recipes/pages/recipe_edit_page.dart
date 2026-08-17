@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 import 'package:drift/drift.dart' hide Column;
 
@@ -147,6 +151,11 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
   final List<TextEditingController> _seasonings = [];
   final List<TextEditingController> _steps = [];
 
+  /// 新选中的图片文件（未保存到库，保存时才复制到私有目录）。
+  File? _pickedImage;
+  /// 编辑时已有的图片路径。
+  String? _existingImagePath;
+
   @override
   void initState() {
     super.initState();
@@ -156,6 +165,7 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
     _servings.text = r?.servings?.toString() ?? '';
     _description.text = r?.description ?? '';
     _difficulty = r?.difficulty ?? 2;
+    _existingImagePath = r?.imagePath;
     _selectedCategories = {
       ...(r == null
           ? <String>[]
@@ -206,6 +216,14 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
     final categories = _selectedCategories.toList();
     final flavors = _selectedFlavors.toList();
 
+    // 图片：选了新图则复制到私有目录；否则沿用已有路径（可能为 null）。
+    String? imagePathToStore;
+    if (_pickedImage != null) {
+      imagePathToStore = await _saveImage(_pickedImage!);
+    } else {
+      imagePathToStore = _existingImagePath;
+    }
+
     if (widget.initial == null) {
       final newId = 'r${now.microsecondsSinceEpoch}';
       await db.insertRecipe(RecipesCompanion(
@@ -217,6 +235,7 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
         description: Value(_description.text.trim().isEmpty
             ? null
             : _description.text.trim()),
+        imagePath: Value(imagePathToStore),
         categoriesJson: Value(jsonEncode(categories)),
         flavorsJson: Value(jsonEncode(flavors)),
         createdAt: Value(now),
@@ -234,6 +253,7 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
         description: Value(_description.text.trim().isEmpty
             ? null
             : _description.text.trim()),
+        imagePath: Value(imagePathToStore),
         categoriesJson: Value(jsonEncode(categories)),
         flavorsJson: Value(jsonEncode(flavors)),
         updatedAt: Value(now),
@@ -293,6 +313,88 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
         _steps[i].dispose();
         _steps.removeAt(i);
       });
+
+  Widget _imagePicker() {
+    final hasImage = _pickedImage != null || _existingImagePath != null;
+    final imageWidget = hasImage
+        ? ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: _pickedImage != null
+                ? Image.file(_pickedImage!, fit: BoxFit.cover,
+                    width: double.infinity, height: 160)
+                : Image.file(File(_existingImagePath!),
+                    fit: BoxFit.cover, width: double.infinity, height: 160),
+          )
+        : const Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.add_a_photo_outlined,
+                    size: 32, color: AppTheme.wood),
+                SizedBox(height: 8),
+                Text('点击添加图片（可选）',
+                    style: TextStyle(color: AppTheme.gray)),
+              ],
+            ),
+          );
+    return GestureDetector(
+      onTap: _pickImage,
+      child: Container(
+        height: 160,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: AppTheme.cream,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppTheme.wood.withOpacity(0.3)),
+        ),
+        child: hasImage
+            ? Stack(
+                children: [
+                  Positioned.fill(child: imageWidget),
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: IconButton(
+                      onPressed: _removeImage,
+                      icon: const Icon(Icons.close, color: Colors.white),
+                      style: IconButton.styleFrom(
+                        backgroundColor: Colors.black54,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : imageWidget,
+      ),
+    );
+  }
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final x = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1024,
+      imageQuality: 80,
+    );
+    if (x != null) setState(() => _pickedImage = File(x.path));
+  }
+
+  void _removeImage() => setState(() {
+        _pickedImage = null;
+        _existingImagePath = null;
+      });
+
+  /// 将选中的图片复制到 App 私有目录，返回持久化路径。
+  Future<String?> _saveImage(File src) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final imgDir = Directory(p.join(dir.path, 'recipe_images'));
+    await imgDir.create(recursive: true);
+    final ext = p.extension(src.path).isEmpty ? '.jpg' : p.extension(src.path);
+    final dest =
+        p.join(imgDir.path, '${DateTime.now().microsecondsSinceEpoch}$ext');
+    await src.copy(dest);
+    return dest;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -356,6 +458,9 @@ class _RecipeFormState extends ConsumerState<RecipeForm> {
               maxLines: 3,
               decoration: const InputDecoration(labelText: '简介（可选）'),
             ),
+            const SizedBox(height: 16),
+            _sectionTitle('菜谱图片'),
+            _imagePicker(),
             const SizedBox(height: 16),
             _sectionTitle('分类'),
             _chips(

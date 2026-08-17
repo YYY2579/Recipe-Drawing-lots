@@ -11,6 +11,7 @@ class AppScaffold extends StatelessWidget {
   final List<Widget>? actions;
   final bool showBack;
   final VoidCallback? onBack;
+  final Widget? floatingActionButton;
 
   const AppScaffold({
     super.key,
@@ -19,14 +20,22 @@ class AppScaffold extends StatelessWidget {
     this.actions,
     this.showBack = false,
     this.onBack,
+    this.floatingActionButton,
   });
 
-  static const List<String> _routes = ['/', '/pools', '/recipes', '/profile'];
+  static const List<String> _routes = [
+    '/',
+    '/pools',
+    '/recipes',
+    '/profile',
+    '/cooking-records'
+  ];
 
   int _indexFor(String loc) {
     if (loc.startsWith('/pools')) return 1;
     if (loc.startsWith('/recipes')) return 2;
     if (loc.startsWith('/profile')) return 3;
+    if (loc.startsWith('/cooking-records')) return 4;
     return 0;
   }
 
@@ -48,6 +57,7 @@ class AppScaffold extends StatelessWidget {
         actions: actions,
       ),
       body: body,
+      floatingActionButton: floatingActionButton,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: idx,
         onTap: (i) {
@@ -64,6 +74,8 @@ class AppScaffold extends StatelessWidget {
               icon: Icon(Icons.menu_book_outlined), label: '菜谱'),
           BottomNavigationBarItem(
               icon: Icon(Icons.person_outline), label: '我的'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.restaurant_menu_outlined), label: '记录'),
         ],
       ),
     );

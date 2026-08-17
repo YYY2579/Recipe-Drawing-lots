@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:what_to_eat/core/database/app_database.dart';
+import 'package:what_to_eat/core/sound/sound_service.dart';
 import 'package:what_to_eat/features/draw/widgets/bamboo_tube.dart';
 import 'package:what_to_eat/providers.dart';
 import 'package:what_to_eat/shared/widgets/app_scaffold.dart';
@@ -37,11 +38,18 @@ class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
 
   Future<void> _onDraw(List<RecipeData> recipes) async {
     if (_controller.isAnimating) return;
+    final settings = ref.read(settingsProvider).valueOrNull;
+    final soundEnabled = settings?.soundEnabled ?? true;
+    final anim = settings?.animationEnabled ?? true;
+
+    // 竹筒摇晃音效（抽签开始即触发，与摇晃动画配套）。
+    ref.read(soundServiceProvider)
+      ..setEnabled(soundEnabled)
+      ..playShake();
+
     final result = await ref.read(drawNotifierProvider.notifier).draw();
     if (!mounted) return;
 
-    final anim =
-        ref.read(settingsProvider).valueOrNull?.animationEnabled ?? true;
     if (anim) {
       final idx = recipes.indexWhere((r) => r.id == result.recipeId);
       setState(() {
@@ -73,10 +81,35 @@ class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
         final current = pools.where((p) => p.id == poolId).firstOrNull;
         final poolName = current?.name ?? '川菜';
         final count = recipes.length;
+        final luckyStar =
+            ref.watch(settingsProvider).valueOrNull?.luckyStarEnabled ?? false;
 
         return AppScaffold(
           title: '今天吃什么？',
           actions: [
+            IconButton(
+              tooltip: luckyStar ? '幸运星模式：开' : '幸运星模式：关',
+              icon: Icon(
+                luckyStar ? Icons.star_rounded : Icons.star_outline_rounded,
+                color: luckyStar ? const Color(0xFFE2B33B) : null,
+              ),
+              onPressed: () async {
+                await ref.read(databaseProvider).updateSettings(
+                      luckyStarEnabled: !luckyStar,
+                    );
+                ref.invalidate(settingsProvider);
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(!luckyStar
+                          ? '幸运星模式已开启：出去吃 / 点外卖概率提升至 40%'
+                          : '幸运星模式已关闭'),
+                      duration: const Duration(seconds: 2),
+                    ),
+                  );
+                }
+              },
+            ),
             IconButton(
               icon: const Icon(Icons.settings_outlined),
               onPressed: () => context.go('/profile'),
@@ -106,13 +139,40 @@ class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
                 ),
                 const SizedBox(height: 8),
                 Expanded(
-                  child: CustomPaint(
-                  size: Size(MediaQuery.of(context).size.width - 48, 320),
-                  painter: BambooTubePainter(
-                      progress: _controller,
-                      recipes: recipes,
-                      targetIndex: _targetIndex,
-                      seed: _seed,
+                  child: GestureDetector(
+                    onTap: drawState.isDrawing
+                        ? null
+                        : () => _onDraw(recipes),
+                    behavior: HitTestBehavior.opaque,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CustomPaint(
+                          size: Size(
+                              MediaQuery.of(context).size.width - 48, 320),
+                          painter: BambooTubePainter(
+                            progress: _controller,
+                            recipes: recipes,
+                            targetIndex: _targetIndex,
+                            seed: _seed,
+                          ),
+                        ),
+                        if (!drawState.isDrawing)
+                          Positioned(
+                            bottom: 0,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF7F3EA),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Text('👆 点击竹筒抽签',
+                                  style: TextStyle(
+                                      color: AppThemeGray, fontSize: 12)),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ),

@@ -94,4 +94,33 @@ class Settings extends Table {
   IntColumn get excludeRecentCount =>
       integer().withDefault(const Constant(1))(); // 最近 N 次不重复
   TextColumn get theme => text().withDefault(const Constant('system'))();
+  BoolColumn get luckyStarEnabled =>
+      boolean().withDefault(const Constant(false))(); // 幸运星模式
+}
+
+/// 做饭记录（按天一条主记录，recordDate 截断到当天 00:00）。
+@DataClassName('CookingRecordData')
+class CookingRecords extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  DateTimeColumn get recordDate => dateTime()(); // 当天日期（系统时间截断）
+  DateTimeColumn get createdAt => dateTime().nullable()();
+  TextColumn get note => text().nullable()();
+}
+
+/// 做饭记录条目（当天做了哪些菜、买菜价格等）。
+@DataClassName('CookingRecordItemData')
+class CookingRecordItems extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get recordId => integer()();
+  TextColumn get dishName => text()();
+  RealColumn get price => real().nullable()(); // 买菜价格（元）
+  TextColumn get note => text().nullable()();
+}
+
+/// 做饭记录模板（预留，可一键套用一组菜品）。
+@DataClassName('CookingTemplateData')
+class CookingTemplates extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text()();
+  TextColumn get itemsJson => text().nullable()(); // JSON: [{"dishName":..,"price":..}]
 }

@@ -12,6 +12,15 @@
 
 import 'dart:math';
 
+/// 特殊抽签选项 id（非真实菜谱，抽签时虚拟注入）。
+const String kOptEatOutId = 'opt_eat_out';
+const String kOptEatOutName = '出去吃';
+const String kOptTakeoutId = 'opt_takeout';
+const String kOptTakeoutName = '点外卖';
+
+/// 判断一个抽签结果 id 是否为「出去吃 / 点外卖」特殊选项。
+bool isSpecialOption(String id) => id == kOptEatOutId || id == kOptTakeoutId;
+
 /// 候选菜谱引用（签池内的一个菜，含可选权重）
 class RecipeRef {
   final String id;
@@ -78,14 +87,30 @@ class DrawEngine {
   /// [recentRecipeIds]   抽签历史中最近的 recipeId，按时间倒序（最新在前）
   /// [excludeRecentCount] 最近 N 次不重复（0 表示不排除）
   /// [poolId]            当前签池 id
+  /// [eatOutProbability]  「出去吃」被抽中的概率（默认 0.1）
+  /// [takeoutProbability] 「点外卖」被抽中的概率（默认 0.1）
+  /// 普通模式下两者各 10%；幸运星模式下由调用方传入 0.4 实现概率提升。
   DrawResult draw({
     required List<RecipeRef> candidates,
     required List<String> recentRecipeIds,
     required int excludeRecentCount,
     required String poolId,
+    double eatOutProbability = 0.1,
+    double takeoutProbability = 0.1,
   }) {
     if (candidates.isEmpty) {
       throw const DrawException('签池为空，无法抽签');
+    }
+
+    // 特殊选项概率闸门：先判定是否抽中「出去吃 / 点外卖」，否则在真实菜谱中抽。
+    final r = _random.nextDouble();
+    final eatOut = eatOutProbability.clamp(0, 1);
+    final takeout = takeoutProbability.clamp(0, 1);
+    if (r < eatOut) {
+      return _special(kOptEatOutId, kOptEatOutName, poolId);
+    }
+    if (r < eatOut + takeout) {
+      return _special(kOptTakeoutId, kOptTakeoutName, poolId);
     }
 
     // §12 候选不足时自动降低排除条件，保证一定能得到结果
@@ -113,6 +138,18 @@ class DrawEngine {
       poolId: poolId,
       timestamp: now,
       animationSeed: _animationSeed(picked.id, now),
+    );
+  }
+
+  /// 构造特殊选项（出去吃 / 点外卖）的结果。
+  DrawResult _special(String id, String name, String poolId) {
+    final now = DateTime.now();
+    return DrawResult(
+      recipeId: id,
+      recipeName: name,
+      poolId: poolId,
+      timestamp: now,
+      animationSeed: _animationSeed(id, now),
     );
   }
 

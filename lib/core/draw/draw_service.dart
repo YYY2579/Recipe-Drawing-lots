@@ -32,6 +32,14 @@ class DrawNotifier extends StateNotifier<DrawState> {
   Future<DrawResult> draw() async {
     state = const DrawState(isDrawing: true);
 
+    // 每次抽签实时读取设置，使「幸运星」与「最近不重复」立即生效。
+    final settings = await db.getSettings();
+    final exclude = settings?.excludeRecentCount ?? excludeRecentCount;
+    final luckyStar = settings?.luckyStarEnabled ?? false;
+    // 幸运星模式：出去吃 / 点外卖 概率由 10% 提升至 40%。
+    final eatOutProb = luckyStar ? 0.4 : 0.1;
+    final takeoutProb = luckyStar ? 0.4 : 0.1;
+
     final recipes = await db.recipesForPool(poolId);
     final candidates =
         recipes.map((r) => RecipeRef(r.id, r.name)).toList();
@@ -40,8 +48,10 @@ class DrawNotifier extends StateNotifier<DrawState> {
     final result = DrawEngine().draw(
       candidates: candidates,
       recentRecipeIds: recent,
-      excludeRecentCount: excludeRecentCount,
+      excludeRecentCount: exclude,
       poolId: poolId,
+      eatOutProbability: eatOutProb,
+      takeoutProbability: takeoutProb,
     );
 
     await db.insertHistory(poolId, result.recipeId);

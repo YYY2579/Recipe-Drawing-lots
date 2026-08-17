@@ -20,13 +20,29 @@ part 'app_database.g.dart';
     PoolRecipes,
     DrawHistories,
     Settings,
+    CookingRecords,
+    CookingRecordItems,
+    CookingTemplates,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  Future<void> onUpgrade(Migrator m, int from, int to) async {
+    if (from < 2) {
+      // 新增幸运星开关列
+      await m.alterTable(TableMigration(settings,
+          newColumns: [settings.luckyStarEnabled]));
+      // 新增做饭记录三表
+      await m.createTable(cookingRecords);
+      await m.createTable(cookingRecordItems);
+      await m.createTable(cookingTemplates);
+    }
+  }
 
   // ---------- 菜谱 ----------
   Future<int> countRecipes() async => (await select(recipes).get()).length;
@@ -159,6 +175,7 @@ class AppDatabase extends _$AppDatabase {
     bool? soundEnabled,
     bool? animationEnabled,
     int? excludeRecentCount,
+    bool? luckyStarEnabled,
   }) async {
     final s = await getSettings();
     if (s == null) {
@@ -166,6 +183,7 @@ class AppDatabase extends _$AppDatabase {
         soundEnabled: Value(soundEnabled ?? true),
         animationEnabled: Value(animationEnabled ?? true),
         excludeRecentCount: Value(excludeRecentCount ?? 1),
+        luckyStarEnabled: Value(luckyStarEnabled ?? false),
       ));
       return;
     }
@@ -173,8 +191,94 @@ class AppDatabase extends _$AppDatabase {
       soundEnabled: soundEnabled ?? s.soundEnabled,
       animationEnabled: animationEnabled ?? s.animationEnabled,
       excludeRecentCount: excludeRecentCount ?? s.excludeRecentCount,
+      luckyStarEnabled: luckyStarEnabled ?? s.luckyStarEnabled,
     ));
   }
+
+  // ---------- 做饭记录 ----------
+  /// 插入一条按天主记录（若当天已存在则复用）。返回主记录 id。
+  Future<int> upsertCookingRecord(DateTime day, {String? note}) async {
+    final start = DateTime(day.year, day.month, day.day);
+    final existing = (select(cookingRecords)
+          ..where((t) => t.recordDate.equals(start)))
+        .getSingleOrNull();
+    final cur = await existing;
+    if (cur != null) {
+      if (note != null) {
+        await update(cookingRecords).replace(cur.copyWith(note: Value(note)));
+      }
+      return cur.id;
+    }
+    return into(cookingRecords).insert(CookingRecordsCompanion(
+      recordDate: Value(start),
+      createdAt: Value(DateTime.now()),
+      note: Value(note),
+    ));
+  }
+
+  Future<void> insertCookingItem(int recordId, String dishName,
+      {double? price, String? note}) {
+    return into(cookingRecordItems).insert(CookingRecordItemsCompanion(
+      recordId: Value(recordId),
+      dishName: Value(dishName),
+      price: Value(price),
+      note: Value(note),
+    ));
+  }
+
+  Future<void> updateCookingItem(CookingRecordItemData item) =>
+      update(cookingRecordItems).replace(item);
+
+  Future<void> deleteCookingItem(int id) =>
+      (delete(cookingRecordItems)..where((t) => t.id.equals(id))).go();
+
+  /// 删除某条记录下的全部条目（编辑记录前清空，避免重复）。
+  Future<void> deleteItemsForRecord(int recordId) =>
+      (delete(cookingRecordItems)..where((t) => t.recordId.equals(recordId)))
+          .go();
+
+  Future<void> deleteCookingRecord(int id) async {
+    await (delete(cookingRecordItems)..where((t) => t.recordId.equals(id)))
+        .go();
+    await (delete(cookingRecords)..where((t) => t.id.equals(id))).go();
+  }
+
+  /// 全部做饭记录（按天倒序），用于时间线。
+  Future<List<CookingRecordData>> allCookingRecords() =>
+      (select(cookingRecords)
+            ..orderBy([(t) => OrderingTerm.desc(t.recordDate)]))
+          .get();
+
+  Future<List<CookingRecordItemData>> itemsForRecord(int recordId) =>
+      (select(cookingRecordItems)..where((t) => t.recordId.equals(recordId)))
+          .get();
+
+  /// 周期消费统计：返回区间内所有条目的总花费。
+  Future<double> totalSpentBetween(DateTime from, DateTime to) async {
+    final records = await (select(cookingRecords)
+          ..where((t) => t.recordDate.isBetweenValues(from, to)))
+        .get();
+    if (records.isEmpty) return 0;
+    final ids = records.map((r) => r.id).toList();
+    final items = await (select(cookingRecordItems)
+          ..where((t) => t.recordId.isIn(ids)))
+        .get();
+    return items.fold<double>(
+        0, (sum, it) => sum + (it.price ?? 0));
+  }
+
+  // ---------- 做饭记录模板 ----------
+  Future<int> insertCookingTemplate(String name, String itemsJson) =>
+      into(cookingTemplates).insert(CookingTemplatesCompanion(
+        name: Value(name),
+        itemsJson: Value(itemsJson),
+      ));
+
+  Future<List<CookingTemplateData>> allCookingTemplates() =>
+      select(cookingTemplates).get();
+
+  Future<void> deleteCookingTemplate(int id) =>
+      (delete(cookingTemplates)..where((t) => t.id.equals(id))).go();
 }
 
 LazyDatabase _openConnection() {

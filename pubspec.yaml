@@ -30,6 +30,12 @@ dependencies:
   # 动画（结果卡展开）
   flutter_animate: ^4.5.0
 
+  # 音效（竹筒摇晃 / 签条揭示）
+  audioplayers: ^6.1.0
+
+  # 图片选择（菜谱自定义图片上传）
+  image_picker: ^1.1.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -43,3 +49,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/seed/
+    - assets/sounds/

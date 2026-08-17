@@ -15,6 +15,7 @@ import 'features/favorites/pages/favorites_page.dart';
 import 'features/history/pages/history_page.dart';
 import 'features/settings/pages/settings_page.dart';
 import 'features/settings/pages/my_profile_page.dart';
+import 'features/cooking_records/pages/cooking_records_page.dart';
 
 /// 数据库单例。
 final databaseProvider = Provider<AppDatabase>((ref) {
@@ -109,6 +110,35 @@ final historyProvider = FutureProvider<List<DrawHistoryData>>((ref) async {
   return db.history();
 });
 
+/// 做饭记录（按天主记录，倒序）。
+final cookingRecordsProvider =
+    FutureProvider<List<CookingRecordData>>((ref) async {
+  final db = ref.watch(databaseProvider);
+  return db.allCookingRecords();
+});
+
+/// 某条做饭记录的菜品条目。
+final cookingItemsProvider =
+    FutureProvider.family<List<CookingRecordItemData>, int>((ref, recordId) async {
+  final db = ref.watch(databaseProvider);
+  return db.itemsForRecord(recordId);
+});
+
+/// 做饭记录模板。
+final cookingTemplatesProvider =
+    FutureProvider<List<CookingTemplateData>>((ref) async {
+  final db = ref.watch(databaseProvider);
+  return db.allCookingTemplates();
+});
+
+/// 周期消费统计（按时间区间统计总花费）。
+final cookingStatsProvider =
+    FutureProvider.family<double, (DateTime, DateTime)>(
+        (ref, range) async {
+  final db = ref.watch(databaseProvider);
+  return db.totalSpentBetween(range.$1, range.$2);
+});
+
 /// 单个签池（详情页）。
 final poolByIdProvider =
     FutureProvider.family<PoolData?, String>((ref, id) async {
@@ -162,6 +192,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/profile',
         builder: (c, s) => const MyProfilePage(),
+      ),
+      GoRoute(
+        path: '/cooking-records',
+        builder: (c, s) => const CookingRecordsPage(),
       ),
     ],
   );

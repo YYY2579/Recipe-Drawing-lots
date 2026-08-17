@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,8 +48,18 @@ class RecipeDetailLightPage extends ConsumerWidget {
                     color: AppTheme.cream,
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: const Center(
-                      child: Text('🍲', style: TextStyle(fontSize: 64))),
+                  child: recipe.imagePath != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.file(
+                            File(recipe.imagePath!),
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => const Center(
+                                child: Text('🍲', style: TextStyle(fontSize: 64))),
+                          ),
+                        )
+                      : const Center(
+                          child: Text('🍲', style: TextStyle(fontSize: 64))),
                 ),
                 const SizedBox(height: 16),
                 Text(recipe.name,
