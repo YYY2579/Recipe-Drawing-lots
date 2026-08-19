@@ -1,7 +1,7 @@
 name: what_to_eat
 description: 今日吃什么 —— 本地优先的菜谱抽签 App（Flutter + Riverpod + GoRouter + Drift）
 publish_to: 'none'
-version: 1.3.0+4
+version: 1.6.0+7
 
 environment:
   sdk: ^3.4.0

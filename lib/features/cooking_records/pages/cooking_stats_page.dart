@@ -33,16 +33,22 @@ class _CookingStatsPageState extends ConsumerState<CookingStatsPage> {
   /// 根据当前模式换算统计区间 (from, to)。
   (DateTime, DateTime) _range() {
     final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final dayEnd = DateTime(now.year, now.month, now.day, 23, 59, 59);
+    // 注意：预设周期返回的 to 必须截断到「天末」之类的确定值，而非 DateTime.now()
+    // （带任意微秒）。若 to 含微秒，每次 build 值都不同，family 元组 key
+    // (from,to) 永不相等 → provider 反复重建 → 统计一直转圈。自定义模式因
+    // end 用 _to(23:59:59) 构造而是确定值，所以只有自定义能用。
     switch (_mode) {
       case _StatsMode.today:
-        return (DateTime(now.year, now.month, now.day), now);
+        return (today, dayEnd);
       case _StatsMode.week:
         final monday = now.subtract(Duration(days: now.weekday - 1));
-        return (DateTime(monday.year, monday.month, monday.day), now);
+        return (DateTime(monday.year, monday.month, monday.day), dayEnd);
       case _StatsMode.month:
-        return (DateTime(now.year, now.month, 1), now);
+        return (DateTime(now.year, now.month, 1), dayEnd);
       case _StatsMode.all:
-        return (DateTime(2000), now);
+        return (DateTime(2000), dayEnd);
       case _StatsMode.custom:
         // 自定义：起始日 00:00 → 结束日 23:59:59，保证整日都纳入。
         final end = DateTime(_to.year, _to.month, _to.day, 23, 59, 59);

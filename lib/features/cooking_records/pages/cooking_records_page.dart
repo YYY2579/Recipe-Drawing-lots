@@ -254,15 +254,13 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
 
   Future<void> _loadExistingItems() async {
     final db = ref.read(databaseProvider);
-    // 编辑：按记录 id 精确加载（原实现按「当天 00:00」精确匹配，
-    // 与带时分秒的存储时间永远对不上，导致编辑时条目全部丢失）。
-    // 新增 / 换日期：按天查找（按天合并模型下当天可能已有条目，预填供追加）。
+    // 编辑：按记录 id 精确加载原有条目（独立成条模型，条目都挂在同一主记录下）。
     final List<CookingRecordItemData> items;
     if (widget.record != null) {
       items = await db.itemsForRecord(widget.record!.id);
     } else {
-      final rec = await db.recordOnDay(_date);
-      items = rec == null ? const [] : await db.itemsForRecord(rec.id);
+      // 新增：始终从一行空行开始，不预填当天旧条目。
+      items = const [];
     }
     if (!mounted) return;
     setState(() {
@@ -290,31 +288,20 @@ class _CookingRecordSheetState extends ConsumerState<CookingRecordSheet> {
     final db = ref.read(databaseProvider);
     int rid;
     if (widget.record != null) {
-      // 编辑：先处理日期变更，再清空条目重插。
+      // 编辑：清理原条目后重插，保持独立成条（不改计时日合并）。
       rid = widget.record!.id;
+      await db.deleteItemsForRecord(rid);
+      // 若用户改了日期，同步更新主记录日期（截断到当天 00:00）。
       final newDay = DateTime(_date.year, _date.month, _date.day);
       final oldDay = DateTime(widget.record!.recordDate.year,
           widget.record!.recordDate.month, widget.record!.recordDate.day);
       if (newDay != oldDay) {
-        final target = await db.recordOnDay(newDay);
-        if (target != null && target.id != rid) {
-          // 目标日期已有记录：条目并入目标记录，删除原记录（按天合并）。
-          await db.deleteItemsForRecord(rid);
-          await db.deleteCookingRecord(rid);
-          rid = target.id;
-        } else {
-          // 目标日期空闲：直接更新主记录日期。
-          await db.updateCookingRecordDate(rid, newDay);
-          await db.deleteItemsForRecord(rid);
-        }
-      } else {
-        await db.deleteItemsForRecord(rid);
+        await db.updateCookingRecordDate(rid, newDay);
       }
     } else {
-      // 新增：按天合并（当天已有主记录则复用，追加明细）。
-      // 原实现每次插入带时分秒的独立记录，导致同一天出现多张卡片、
-      // 编辑时按日期精确匹配失效、统计边界混乱。
-      rid = await db.upsertCookingRecord(_date);
+      // 新增：每次「记一笔」都是独立一条主记录（带日期），不按天合并，
+      // 这样时间线上每一笔都各自可见，编辑/删除分明。
+      rid = await db.insertCookingRecord(_date);
     }
     for (final r in _rows) {
       final name = r.name.text.trim();

@@ -182,11 +182,33 @@ class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
                         behavior: HitTestBehavior.opaque,
                         child: Stack(
                           alignment: Alignment.center,
+                          clipBehavior: Clip.none,
                           children: [
+                            // 竹筒底座柔光：暖米白椭圆软光，让竹筒更突出
+                            Positioned(
+                              bottom: -8,
+                              child: IgnorePointer(
+                                child: Container(
+                                  width: 240,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    gradient: RadialGradient(
+                                      colors: [
+                                        AppTheme.wood
+                                            .withValues(alpha: 0.12),
+                                        AppTheme.wood
+                                            .withValues(alpha: 0.0),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             BambooTube3D(key: _bambooKey),
                             if (!_busy)
                               Positioned(
-                                bottom: 0,
+                                bottom: -4,
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 14, vertical: 6),
@@ -194,8 +216,8 @@ class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
                                     color: AppTheme.cream,
                                     borderRadius: BorderRadius.circular(14),
                                     border: Border.all(
-                                      color:
-                                          AppTheme.wood.withOpacity(0.25),
+                                      color: AppTheme.wood
+                                          .withValues(alpha: 0.25),
                                     ),
                                   ),
                                   child: const Text(
@@ -203,6 +225,7 @@ class _HomeDrawPageState extends ConsumerState<HomeDrawPage>
                                     style: TextStyle(
                                       color: AppTheme.gray,
                                       fontSize: 12.5,
+                                      letterSpacing: 0.3,
                                     ),
                                   ),
                                 ),
@@ -284,7 +307,7 @@ class _PoolSelector extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppTheme.cream,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppTheme.wood.withOpacity(0.3)),
+          border: Border.all(color: AppTheme.wood.withValues(alpha: 0.3)),
           boxShadow: const [
             BoxShadow(
               color: Color(0x14000000),

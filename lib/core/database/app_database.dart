@@ -208,41 +208,13 @@ class AppDatabase extends _$AppDatabase {
   }
 
   // ---------- 做饭记录 ----------
-  /// 插入一条按天主记录（若当天已存在则复用）。返回主记录 id。
-  Future<int> upsertCookingRecord(DateTime day, {String? note}) async {
-    final start = DateTime(day.year, day.month, day.day);
-    final existing = (select(cookingRecords)
-          ..where((t) => t.recordDate.equals(start)))
-        .getSingleOrNull();
-    final cur = await existing;
-    if (cur != null) {
-      if (note != null) {
-        await update(cookingRecords).replace(cur.copyWith(note: Value(note)));
-      }
-      return cur.id;
-    }
-    return into(cookingRecords).insert(CookingRecordsCompanion(
-      recordDate: Value(start),
-      createdAt: Value(DateTime.now()),
-      note: Value(note),
-    ));
-  }
-
-  /// 插入一条全新的独立记录（带时分秒，不按天复用）。用于「记一笔」每次独立成条，
-  /// 而非在当天已有记录上累加。
+  /// 插入一条全新的独立记录。用于「记一笔」每次独立成条（时间线每笔各自可见）。
   Future<int> insertCookingRecord(DateTime when, {String? note}) {
     return into(cookingRecords).insert(CookingRecordsCompanion(
       recordDate: Value(when),
       createdAt: Value(DateTime.now()),
       note: Value(note),
     ));
-  }
-
-  /// 查询某天（00:00）的主记录，用于按天合并 / 改日期冲突检测。
-  Future<CookingRecordData?> recordOnDay(DateTime day) async {
-    final start = DateTime(day.year, day.month, day.day);
-    return (select(cookingRecords)..where((t) => t.recordDate.equals(start)))
-        .getSingleOrNull();
   }
 
   /// 更新主记录日期（补录 / 改日期），日期截断到当天 00:00。
@@ -290,10 +262,15 @@ class AppDatabase extends _$AppDatabase {
       (select(cookingRecordItems)..where((t) => t.recordId.equals(recordId)))
           .get();
 
-  /// 周期消费统计：返回区间内所有条目的总花费。
+  /// 周期消费统计：返回 `[from, to)` 区间（含 from、不含 to 次日）内所有条目的总花费。
+  /// 用「次日 00:00 开区间」判断，彻底规避 recordDate 带任意时分秒/亚秒时
+  /// 闭区间 `23:59:59` 可能命不中的边界问题。
   Future<double> totalSpentBetween(DateTime from, DateTime to) async {
+    final endExcl = _nextDay(to);
     final records = await (select(cookingRecords)
-          ..where((t) => t.recordDate.isBetweenValues(from, to)))
+          ..where((t) =>
+              t.recordDate.isBiggerOrEqualValue(from) &
+              t.recordDate.isSmallerThanValue(endExcl)))
         .get();
     if (records.isEmpty) return 0;
     final ids = records.map((r) => r.id).toList();
@@ -312,10 +289,14 @@ class AppDatabase extends _$AppDatabase {
 
   /// 区间内的「记录条目 + 所属记录日期」，供自定义时间段统计使用。
   /// 返回 (条目, 记录日期) 列表；记录日期用于按日聚合趋势。
+  /// 用 `[from, to)` 次日开区间，规避 recordDate 时分秒/亚秒边界命不中的问题。
   Future<List<(CookingRecordItemData, DateTime)>> itemsWithDateBetween(
       DateTime from, DateTime to) async {
+    final endExcl = _nextDay(to);
     final records = await (select(cookingRecords)
-          ..where((t) => t.recordDate.isBetweenValues(from, to)))
+          ..where((t) =>
+              t.recordDate.isBiggerOrEqualValue(from) &
+              t.recordDate.isSmallerThanValue(endExcl)))
         .get();
     if (records.isEmpty) return const [];
     final ids = records.map((r) => r.id).toList();
@@ -328,6 +309,10 @@ class AppDatabase extends _$AppDatabase {
         .map((it) => (it, dateOf[it.recordId]!))
         .toList();
   }
+
+  /// 返回 [d] 当天的下一天 00:00（用于 `[from, to)` 的左闭右开统计边界）。
+  static DateTime _nextDay(DateTime d) =>
+      DateTime(d.year, d.month, d.day + 1);
 
   // ---------- 做饭记录模板 ----------
   Future<int> insertCookingTemplate(String name, String itemsJson) =>
